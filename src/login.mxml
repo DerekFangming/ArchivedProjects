@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="640" height="920">
 	
 	<fx:Metadata>
 		[Event("LoginOk", type="flash.events.Event")]
@@ -21,5 +21,10 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Button id="Login" x="301" y="236" label="login in" click="Login_clickHandler(event)"/>
+	<s:Button id="Login" x="192" y="743" width="255" height="66" label="登陆"
+			  click="Login_clickHandler(event)"/>
+	<s:Label x="41" y="347" text="用户名"/>
+	<s:Label x="41" y="488" text="密码"/>
+	<s:TextInput x="37" y="405" width="534"/>
+	<s:TextInput x="37" y="557" width="518"/>
 </s:Panel>
