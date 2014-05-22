@@ -1,22 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
-							xmlns:s="library://ns.adobe.com/flex/spark" firstView="views.wellcomView" applicationDPI="160">
-	<fx:Declarations>
-		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
-	</fx:Declarations>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="400" minHeight="300" pageTitle="browser_style" xmlns:ns1="*"
+			   creationComplete="application1_creationCompleteHandler(event)"  viewSourceURL="srcview/index.html">
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+	
 	<fx:Script>
 		<![CDATA[
-			import views.EmployeeView;
+			import mx.events.FlexEvent;
 			
-			protected function button1_clickHandler(event:MouseEvent):void {
-				// Switch to the first view in the section.
-//				navigator.popToFirstView();
-				navigator.pushView(EmployeeView,null,null,null);
+			protected function backBtn_clickHandler(event:MouseEvent):void
+			{
+				if (currentState == "EntryPanel") this.currentState="LoginPanel";
+				if (currentState == "ResultPanel") this.currentState="EntryPanel";
 			}
+			
+			
+			protected function fwdBtn_clickHandler(event:MouseEvent):void
+			{
+				if (currentState == "EntryPanel") this.currentState="ResultPanel";
+				if (currentState == "LoginPanel") this.currentState="EntryPanel";
+			}
+			
+			protected function application1_creationCompleteHandler(event:FlexEvent):void
+			{
+				//
+			}
+			
+			protected function login_pnl1_LoginOkHandler(event:Event):void
+			{
+				currentState = "EntryPanel"; 
+			}
+			
 		]]>
 	</fx:Script>
+	<s:states>
+		<s:State name="LoginPanel"/>
+		<s:State name="EntryPanel"/>
+		<s:State name="ResultPanel"/>
+	</s:states>
 	
-	<s:navigationContent>
-		<s:Button  click="button1_clickHandler(event)"/>
-	</s:navigationContent>
-</s:ViewNavigatorApplication>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Button id="backBtn" label.EntryPanel="Back to Start" label.ResultPanel="Back to Input" left="5" bottom="5"
+			  includeIn="EntryPanel,ResultPanel" click="backBtn_clickHandler(event)"/>
+	<s:Button id="fwdBtn" label.EntryPanel="Goto Data" right="5" bottom="5"
+			  includeIn="EntryPanel" click="fwdBtn_clickHandler(event)"/>
+	<ns1:login_pnl includeIn="LoginPanel" horizontalCenter="0" verticalCenter="0" LoginOk="login_pnl1_LoginOkHandler(event)"> 
+	</ns1:login_pnl>
+	<ns1:details_pnl includeIn="EntryPanel" horizontalCenter="0" verticalCenter="0">
+	</ns1:details_pnl>
+	<ns1:result_pnl includeIn="ResultPanel" horizontalCenter="0" verticalCenter="0">
+	</ns1:result_pnl>
+</s:Application>
