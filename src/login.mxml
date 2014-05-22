@@ -21,10 +21,10 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Button id="Login" x="192" y="743" width="255" height="66" label="登陆"
+	<s:Button id="Login" x="192" y="63" width="255" height="66" label="登陆"
 			  click="Login_clickHandler(event)"/>
 	<s:Label x="41" y="347" text="用户名"/>
 	<s:Label x="41" y="488" text="密码"/>
-	<s:TextInput x="37" y="405" width="534"/>
+	<s:TextInput id="input1" x="37" y="405" width="534"/>
 	<s:TextInput x="37" y="557" width="518"/>
 </s:Panel>

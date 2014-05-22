@@ -21,6 +21,8 @@
 			protected function fwdBtn_clickHandler(event:MouseEvent):void
 			{
 				if (currentState == "EntryPanel") this.currentState="ResultPanel";
+//				var login:String =input1.text;
+				
 				if (currentState == "LoginPanel") this.currentState="EntryPanel";
 			}
 			
