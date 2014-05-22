@@ -13,7 +13,6 @@
 //				navigator.popToFirstView();
 				navigator.pushView(EmployeeView,null,null,null);
 			}
-			// comment
 		]]>
 	</fx:Script>
 	
