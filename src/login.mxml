@@ -11,60 +11,60 @@
 	
 	<fx:Script>
 		<![CDATA[
-//			import com.adobe.airbench.model.ModelLocator;
-			
-			private const SQL:String = "sql";
-//			private var ml:ModelLocator;
-			private const SQL_FILE_NAME:String = "test_file.db";
-			private var rows:uint = 500;
+			//Flag makes sure that the database is initialized only once
 			private var flag:uint = 0;
 			
 			protected function Login_clickHandler(event:MouseEvent):void
 			{
 				if(validateLogin()){
 				dispatchEvent(new Event("LoginOk"));
-				ErrorMsg.setVisible(false);
-				}
-				else{
-				
-				ErrorMsg.setVisible(true);
+				ErrorMsg.text = "";
 				}
 			}
 			
 			protected function validateLogin():Boolean
 			{
 				var validate:Boolean = true;
-//				if(Username.text == "synfm"){
-//					validate = true;
-//				}
-//				else{
-//					validate = false;
-//				}
 				if(flag != 1){
 					initDB();
 					flag ++;
 				}
 				
-				var stmt:SQLStatement = new SQLStatement();
-				stmt.sqlConnection = dbConnection;
-				stmt.text = "SELECT * FROM accounts WHERE username = (:username)";
-				stmt.parameters[':username'] = Username.text;
-				stmt.execute();
-				var result:SQLResult = stmt.getResult(); 
-				var row:Object = result.data[0]; 
-				if(result == null){
+				if(Username.text == ""){
+					ErrorMsg.text = "请输入用户名";
 					validate = false;
-     				print.text = "null"; 
+				}
+				else if(Password.text == ""){
+					ErrorMsg.text = "请输入密码";
+					validate = false
 				}
 				else{
-					if(row.password == Password.text){
-						validate = true;
+					var stmt:SQLStatement = new SQLStatement();
+					stmt.sqlConnection = dbConnection;
+					stmt.text = "SELECT * FROM accounts WHERE username = (:username)";
+					stmt.parameters[':username'] = Username.text;
+					stmt.execute();
+					var result:SQLResult = stmt.getResult(); 
+					
+					try{
+						var row:Object = result.data[0]; 
+						if(row.password == Password.text){
+							validate = true;
+						}
+						else{
+							validate = false;
+							ErrorMsg.text = "密码错误";
+						}
 					}
-					else{
+					catch(error:Error){
 						validate = false;
-						print.text = row.password; 
+						ErrorMsg.text = "用户不存在";
 					}
+					
 				}
+				
+				
+				
 				return validate;
 			}
 			
@@ -72,7 +72,7 @@
 			private function initDB():void{
 				var embededSessionDB:File = File.applicationDirectory.resolvePath("assets/database.sqlite");
 				var writeSessionDB:File = File.applicationStorageDirectory.resolvePath("assets/database.sqlite");
-				// If a writable DB doesn't exist, we then copy it into the app folder so it's writteable
+				// This process is fatal for android 
 				if (!writeSessionDB.exists) {
 					embededSessionDB.copyTo(writeSessionDB);
 				}
@@ -80,75 +80,75 @@
 				dbConnection.open(dbFile);
 			}
 			
-			private function onViewActivate():void
-			{
-//				this.ml = ModelLocator.getInstance();
-//				this.description.text = this.description.text.replace("$1", rows);
-				
-				var db:File = File.applicationStorageDirectory.resolvePath(SQL_FILE_NAME);
-				var conn:SQLConnection = new SQLConnection();
-				conn.open(db);
-				var d:Date = new Date();
-				
-				var startTime:Number = new Date().time;
-				
-				// Create a table
-				var stmt:SQLStatement = new SQLStatement();
-				stmt.sqlConnection = conn;
-				stmt.text = "CREATE TABLE IF NOT EXISTS accounts (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT, account_created DATE, active BOOLEAN, last_order INTEGER);";
-				stmt.execute();
-				stmt = null;
-				
-				// Insert some rows
-				stmt = new SQLStatement();
-				stmt.sqlConnection = conn;
-				conn.begin();
-				stmt.text = "INSERT INTO accounts (first_name, last_name, account_created, active, last_order) VALUES (:first_name, :last_name, :account_created, :active, :last_order);";
-				for (var i:uint = 0; i < rows; ++i)
-				{
-					stmt.parameters[":first_name"]      = "Christian";
-					stmt.parameters[":last_name"]       = "Cantrell";
-					stmt.parameters[":account_created"] = d;
-					stmt.parameters[":active"]          = true;
-					stmt.parameters[":last_order"]      = i;
-					stmt.execute();
-				}
-				conn.commit();
-				stmt = null;
-				d = null;
-				
-				// Select some rows
-				stmt = new SQLStatement();
-				stmt.sqlConnection = conn;
-				stmt.text = "SELECT * FROM accounts";
-				stmt.execute();
-				var result:SQLResult = stmt.getResult();
-				stmt = null;
-				
-				// Delete some rows
-				stmt = new SQLStatement();
-				stmt.sqlConnection = conn;
-				stmt.text = "DELETE FROM accounts WHERE first_name = :first_name AND last_name = :last_name;";
-				stmt.parameters[":first_name"] = "Christian";
-				stmt.parameters[":last_name"] = "Cantrell";
-				stmt.execute();
-				stmt = null;
-				conn.close();
-				
-				var totalTime:Number = new Date().time - startTime;
-				
-				db = File.applicationStorageDirectory.resolvePath(SQL_FILE_NAME);
-				db.deleteFile();
-				db = null;
-				
+//			private function onViewActivate():void
+//			{
+////				this.ml = ModelLocator.getInstance();
+////				this.description.text = this.description.text.replace("$1", rows);
+//				
+//				var db:File = File.applicationStorageDirectory.resolvePath(SQL_FILE_NAME);
+//				var conn:SQLConnection = new SQLConnection();
+//				conn.open(db);
+//				var d:Date = new Date();
+//				
+//				var startTime:Number = new Date().time;
+//				
+//				// Create a table
+//				var stmt:SQLStatement = new SQLStatement();
+//				stmt.sqlConnection = conn;
+//				stmt.text = "CREATE TABLE IF NOT EXISTS accounts (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT, account_created DATE, active BOOLEAN, last_order INTEGER);";
+//				stmt.execute();
+//				stmt = null;
+//				
+//				// Insert some rows
+//				stmt = new SQLStatement();
+//				stmt.sqlConnection = conn;
+//				conn.begin();
+//				stmt.text = "INSERT INTO accounts (first_name, last_name, account_created, active, last_order) VALUES (:first_name, :last_name, :account_created, :active, :last_order);";
+//				for (var i:uint = 0; i < rows; ++i)
+//				{
+//					stmt.parameters[":first_name"]      = "Christian";
+//					stmt.parameters[":last_name"]       = "Cantrell";
+//					stmt.parameters[":account_created"] = d;
+//					stmt.parameters[":active"]          = true;
+//					stmt.parameters[":last_order"]      = i;
+//					stmt.execute();
+//				}
+//				conn.commit();
+//				stmt = null;
+//				d = null;
+//				
+//				// Select some rows
+//				stmt = new SQLStatement();
+//				stmt.sqlConnection = conn;
+//				stmt.text = "SELECT * FROM accounts";
+//				stmt.execute();
+//				var result:SQLResult = stmt.getResult();
+//				stmt = null;
+//				
+//				// Delete some rows
+//				stmt = new SQLStatement();
+//				stmt.sqlConnection = conn;
+//				stmt.text = "DELETE FROM accounts WHERE first_name = :first_name AND last_name = :last_name;";
+//				stmt.parameters[":first_name"] = "Christian";
+//				stmt.parameters[":last_name"] = "Cantrell";
+//				stmt.execute();
+//				stmt = null;
+//				conn.close();
+//				
+//				var totalTime:Number = new Date().time - startTime;
+//				
+//				db = File.applicationStorageDirectory.resolvePath(SQL_FILE_NAME);
+//				db.deleteFile();
+//				db = null;
+//				
 //				this.output.text = "Total time: " + String(totalTime) + " ms";
 //				this.ml.testManager.reportPerformanceTestResults(SQL, totalTime, "SQL operations took " + String(totalTime) + " ms.");
 //				this.navBar.testComplete(true, "Test Complete");
-			}
-			
-			private function onViewDeactivate():void
-			{
-			}
+//			}
+//			
+//			private function onViewDeactivate():void
+//			{
+//			}
 			
 		]]>
 	</fx:Script>
@@ -162,6 +162,5 @@
 	<s:Label x="10" y="226" text="密码"/>
 	<s:TextInput id="Username" x="10" y="171" width="300"/>
 	<s:TextInput id="Password" x="10" y="254" width="300" displayAsPassword="true"/>
-	<s:Label id="ErrorMsg" x="90" y="107" width="147" height="20" text="用户名或密码不正确" color="red" visible="false"/>
-	<s:Label id="print" x="54" y="24" width="214" height="17" text="Label"/>
+	<s:Label id="ErrorMsg" x="115" y="107" width="96" height="20" text="" color="red"/>
 </s:Panel>
