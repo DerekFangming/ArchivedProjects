@@ -103,5 +103,5 @@
 		<esri:GraphicsLayer id="myGraphicsLayer"/>
 	</esri:Map>
 	<s:Label id="resultSummary" height="15"/>
-	<s:Button x="317" y="10" width="51" height="25" label="Find" click="doFind()"/>
+	<s:Button x="274" y="10" width="56" height="34" label="Find" click="doFind()"/>
 </s:Group>

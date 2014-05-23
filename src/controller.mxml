@@ -33,7 +33,7 @@
 			
 			protected function login_pnl1_LoginOkHandler(event:Event):void
 			{
-				currentState = "EntryPanel"; 
+				currentState = "EntryPanel";
 			}
 			
 		]]>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="320" height="460">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="320" height="460"
+		 xmlns:components="com.adobe.airbench.components.*"
+		 title="SQL">
 	
 	<fx:Metadata>
 		[Event("LoginOk", type="flash.events.Event")]
@@ -9,10 +11,146 @@
 	
 	<fx:Script>
 		<![CDATA[
+//			import com.adobe.airbench.model.ModelLocator;
+			
+			private const SQL:String = "sql";
+//			private var ml:ModelLocator;
+			private const SQL_FILE_NAME:String = "test_file.db";
+			private var rows:uint = 500;
 			
 			protected function Login_clickHandler(event:MouseEvent):void
 			{
+				if(validateLogin()){
 				dispatchEvent(new Event("LoginOk"));
+				ErrorMsg.setVisible(false);
+//				// Create a table
+//				var stmt:SQLStatement = new SQLStatement();
+//				
+//				var db:File = File.applicationStorageDirectory.resolvePath(SQL_FILE_NAME);
+//				var conn:SQLConnection = new SQLConnection();
+//				conn.open(db);
+//				var d:Date = new Date();
+//				
+//				var startTime:Number = new Date().time;
+//				stmt.sqlConnection = conn;
+//				stmt.text = "CREATE TABLE IF NOT EXISTS accounts (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT);";
+//				stmt.execute();
+//				stmt = null;
+//				// Insert some rows
+//				stmt = new SQLStatement();
+//				stmt.sqlConnection = conn;
+//				conn.begin();
+//				stmt.text = "INSERT INTO accounts (username, password) VALUES (:username, :password);";
+//					stmt.parameters[":username"]      = Username.text;
+//					stmt.parameters[":password"]       = Password.text;
+//					stmt.execute();
+//				conn.commit();
+//				stmt = null;
+//				d = null;
+				}
+				else{
+				ErrorMsg.setVisible(true);
+				}
+			}
+			
+			protected function validateLogin():Boolean
+			{
+				var validate:Boolean = true;
+//				if(Username.text == "synfm"){
+//					validate = true;
+//				}
+//				else{
+//					validate = false;
+//				}
+				var stmt:SQLStatement = new SQLStatement();			
+				var db:File = File.applicationStorageDirectory.resolvePath(SQL_FILE_NAME);
+				var conn:SQLConnection = new SQLConnection();
+				conn.open(db);
+				stmt = new SQLStatement();
+				stmt.sqlConnection = conn;
+				stmt.text = "SELECT password FROM accounts Where username = :username";
+				stmt.parameters[":username"] = Username.text;
+				stmt.execute();
+				var result:SQLResult = stmt.getResult();
+				var value:String = "123";
+				if (value == Password.text){
+					validate = true;
+				}
+				else{
+					validate = false;
+				}
+				stmt = null;
+				return validate;
+			}
+			
+			private function onViewActivate():void
+			{
+//				this.ml = ModelLocator.getInstance();
+//				this.description.text = this.description.text.replace("$1", rows);
+				
+				var db:File = File.applicationStorageDirectory.resolvePath(SQL_FILE_NAME);
+				var conn:SQLConnection = new SQLConnection();
+				conn.open(db);
+				var d:Date = new Date();
+				
+				var startTime:Number = new Date().time;
+				
+				// Create a table
+				var stmt:SQLStatement = new SQLStatement();
+				stmt.sqlConnection = conn;
+				stmt.text = "CREATE TABLE IF NOT EXISTS accounts (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT, account_created DATE, active BOOLEAN, last_order INTEGER);";
+				stmt.execute();
+				stmt = null;
+				
+				// Insert some rows
+				stmt = new SQLStatement();
+				stmt.sqlConnection = conn;
+				conn.begin();
+				stmt.text = "INSERT INTO accounts (first_name, last_name, account_created, active, last_order) VALUES (:first_name, :last_name, :account_created, :active, :last_order);";
+				for (var i:uint = 0; i < rows; ++i)
+				{
+					stmt.parameters[":first_name"]      = "Christian";
+					stmt.parameters[":last_name"]       = "Cantrell";
+					stmt.parameters[":account_created"] = d;
+					stmt.parameters[":active"]          = true;
+					stmt.parameters[":last_order"]      = i;
+					stmt.execute();
+				}
+				conn.commit();
+				stmt = null;
+				d = null;
+				
+				// Select some rows
+				stmt = new SQLStatement();
+				stmt.sqlConnection = conn;
+				stmt.text = "SELECT * FROM accounts";
+				stmt.execute();
+				var result:SQLResult = stmt.getResult();
+				stmt = null;
+				
+				// Delete some rows
+				stmt = new SQLStatement();
+				stmt.sqlConnection = conn;
+				stmt.text = "DELETE FROM accounts WHERE first_name = :first_name AND last_name = :last_name;";
+				stmt.parameters[":first_name"] = "Christian";
+				stmt.parameters[":last_name"] = "Cantrell";
+				stmt.execute();
+				stmt = null;
+				conn.close();
+				
+				var totalTime:Number = new Date().time - startTime;
+				
+				db = File.applicationStorageDirectory.resolvePath(SQL_FILE_NAME);
+				db.deleteFile();
+				db = null;
+				
+//				this.output.text = "Total time: " + String(totalTime) + " ms";
+//				this.ml.testManager.reportPerformanceTestResults(SQL, totalTime, "SQL operations took " + String(totalTime) + " ms.");
+//				this.navBar.testComplete(true, "Test Complete");
+			}
+			
+			private function onViewDeactivate():void
+			{
 			}
 			
 		]]>
@@ -21,10 +159,11 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Button id="Login" x="81" y="285" width="157" height="35" label="登陆"
+	<s:Button id="Login" x="81" y="300" width="157" height="35" label="登陆"
 			  click="Login_clickHandler(event)"/>
-	<s:Label x="10" y="129" text="用户名"/>
-	<s:Label x="9" y="207" text="密码"/>
-	<s:TextInput x="10" y="153" width="300"/>
-	<s:TextInput x="10" y="225" width="300"/>
+	<s:Label x="10" y="147" text="用户名"/>
+	<s:Label x="10" y="226" text="密码"/>
+	<s:TextInput id="Username" x="10" y="171" width="300"/>
+	<s:TextInput id="Password" x="10" y="254" width="300" displayAsPassword="true"/>
+	<s:Label id="ErrorMsg" x="90" y="107" width="147" height="20" text="用户名或密码不正确" color="red" visible="false"/>
 </s:Panel>

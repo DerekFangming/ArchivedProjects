@@ -2,3 +2,13 @@
 .actionScriptProperties
 
 bin-debug/controller.swf
+
+.flexProperties
+
+.actionScriptProperties
+
+*.swf
+
+*.swf
+
+bin-debug/controller.swf
