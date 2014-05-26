@@ -13,15 +13,18 @@
 						 			
 			protected function backBtn_clickHandler(event:MouseEvent):void
 			{
-				if (currentState == "EntryPanel") this.currentState="LoginPanel";
+				if (currentState == "EntryPanel")this.currentState="LoginPanel";		
 				if (currentState == "ResultPanel") this.currentState="EntryPanel";
 			}
 			
 			
 			protected function fwdBtn_clickHandler(event:MouseEvent):void
 			{
-				if (currentState == "EntryPanel") this.currentState="ResultPanel";
-				//				var login:String =input1.text;
+				if (currentState == "EntryPanel") 
+				{
+					this.currentState="ResultPanel";
+//					result_pnl.arr=mapView.dgArr;
+				}				
 				
 				if (currentState == "LoginPanel") this.currentState="EntryPanel";
 			}

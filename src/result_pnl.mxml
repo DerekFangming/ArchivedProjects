@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 		 xmlns:s="library://ns.adobe.com/flex/spark"
-		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:mx="library://ns.adobe.com/flex/mx" initialize="group1_initializeHandler(event)"
 		 xmlns:ns1="*"
-		 initialize="group1_initializeHandler(event)"
 		 width="320" height="480">
 	<fx:Script>
 		<![CDATA[
+			import com.esri.ags.layers.supportClasses.StaticLayer_m_globe;
+			
 			import flash.sampler.NewObjectSample;
 			
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
+
 			[Bindable]
-			public var arr:ArrayCollection=new ArrayCollection();
+			public static var arr:ArrayCollection=new ArrayCollection();
+
+//			public static function getdata(event:FlexEvent):void
+//			{					
+//				
+//				dg.dataProvider=arr;
+//				dg0.dataProvider=arr;
+//						
+//			}
+			
+			
 			
 			protected function group1_initializeHandler(event:FlexEvent):void
 			{
-				// TODO Auto-generated method stub							
-				arr=mapView.dgArr;
+				// TODO Auto-generated method stub
 				dg.dataProvider=arr;
+				dg0.dataProvider=arr;
 			}
 			
 		]]>
@@ -28,30 +40,23 @@
 		
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:DataGrid id="dg" x="0" y="0" width="100%" height="30%" alpha="0.5" >
+	<s:DataGrid id="dg" x="0" y="0" width="310" alpha="0.5"  dataProvider="{arr}"
+				verticalScrollPolicy="auto">
 		
 		<s:columns>
 			<s:ArrayList>
 				<s:GridColumn dataField="SCHLTXCD" headerText="SCHLTXCD"/>
-				<s:GridColumn dataField="LNDVALUE"
-							  headerText="LNDVALUE"/>
-				<!--labelFunction="sumLabelFunction"/>-->
-				<s:GridColumn width="49"
-							  dataField="CNTASSDVAL"
-							  headerText="Count"/>
+				<s:GridColumn dataField="LNDVALUE" headerText="LNDVALUE"/>				
+				<s:GridColumn dataField="CNTASSDVAL" headerText="Count"/>
 			</s:ArrayList>
 		</s:columns>
 	</s:DataGrid>
-	<s:DataGrid id="dg0" x="0" y="148" width="100%" height="50%" alpha="0.5">
+	<s:DataGrid id="dg0" x="0" y="173" alpha="0.5" verticalScrollPolicy="auto" dataProvider="{arr}">
 		<s:columns>
 			<s:ArrayList>
 				<s:GridColumn dataField="SCHLTXCD" headerText="SCHLTXCD"/>
-				<s:GridColumn dataField="LNDVALUE"
-							  headerText="LNDVALUE"/>
-				<!--labelFunction="sumLabelFunction"/>-->
-				<s:GridColumn width="49"
-							  dataField="CNTASSDVAL"
-							  headerText="Count"/>
+				<s:GridColumn dataField="LNDVALUE" headerText="LNDVALUE"/>				
+				<s:GridColumn dataField="CNTASSDVAL" headerText="Count"/>
 			</s:ArrayList>
 		</s:columns>
 	</s:DataGrid>
