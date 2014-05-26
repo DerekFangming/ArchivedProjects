@@ -9,15 +9,17 @@
 			import com.esri.ags.Graphic;
 			import com.esri.ags.events.DrawEvent;
 			import com.esri.ags.events.GeometryServiceEvent;
+			import com.esri.ags.events.QueryEvent;
 			import com.esri.ags.geometry.Geometry;
 			import com.esri.ags.geometry.Polygon;
 			import com.esri.ags.symbols.SimpleLineSymbol;
 			import com.esri.ags.tasks.GeometryService;
 			import com.esri.ags.tasks.QueryTask;
-			import com.esri.ags.events.QueryEvent;
 			import com.esri.ags.tasks.supportClasses.Query;
 			import com.esri.ags.tasks.supportClasses.StatisticDefinition;
 			import com.esri.ags.utils.GeometryUtil;
+			
+			import flash.sampler.NewObjectSample;
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
@@ -26,6 +28,7 @@
 			import mx.rpc.events.FaultEvent;
 			
 			import spark.events.IndexChangeEvent;
+			
 			
 			[Bindable]
 			public var spatialRelationshipOptions_linear:ArrayCollection = new ArrayCollection(
@@ -185,8 +188,8 @@
 			protected function queryTask_executeCompleteHandler(event:QueryEvent):void
 			{
 				var fields:Array = event.featureSet.fields;
-				var attributes:Array = event.featureSet.attributes;
-				dg.dataProvider = new ArrayCollection(attributes);
+				var attributes:Array = event.featureSet.attributes;				
+				dg.dataProvider = new ArrayCollection(attributes);				
 			}
 			
 		]]>

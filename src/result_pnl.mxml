@@ -1,9 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="320" height="480">
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:ns1="*"
+		 width="320" height="480">
+	<fx:Script>
+		<![CDATA[
+			import flash.sampler.NewObjectSample;			
+			import mx.collections.ArrayCollection;
+
+		]]>
+	</fx:Script>
 	<fx:Declarations>
+		
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	
+	<s:DataGrid id="dg" right="0" top="0" width="320" height="114" alpha="0.5">
+		<s:columns>
+			<s:ArrayList>
+				<s:GridColumn dataField="SCHLTXCD" headerText="SCHLTXCD"/>
+				<s:GridColumn dataField="LNDVALUE"
+							  headerText="LNDVALUE"/>
+				<!--labelFunction="sumLabelFunction"/>-->
+				<s:GridColumn width="49"
+							  dataField="CNTASSDVAL"
+							  headerText="Count"/>
+			</s:ArrayList>
+		</s:columns>
+	</s:DataGrid>
+	<s:DataGrid id="dg0" right="0" top="223" width="320" height="247" alpha="0.5">
+		<s:columns>
+			<s:ArrayList>
+				<s:GridColumn dataField="SCHLTXCD" headerText="SCHLTXCD"/>
+				<s:GridColumn dataField="LNDVALUE"
+							  headerText="LNDVALUE"/>
+				<!--labelFunction="sumLabelFunction"/>-->
+				<s:GridColumn width="49"
+							  dataField="CNTASSDVAL"
+							  headerText="Count"/>
+			</s:ArrayList>
+		</s:columns>
+	</s:DataGrid>
 </s:Group>

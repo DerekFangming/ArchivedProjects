@@ -10,7 +10,7 @@
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
-			
+						 			
 			protected function backBtn_clickHandler(event:MouseEvent):void
 			{
 				if (currentState == "EntryPanel") this.currentState="LoginPanel";

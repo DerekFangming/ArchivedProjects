@@ -12,3 +12,5 @@ bin-debug/controller.swf
 *.swf
 
 bin-debug/controller.swf
+.model/phoneApp.fml
+.model/phoneApp.fml
