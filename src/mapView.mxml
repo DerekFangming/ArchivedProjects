@@ -107,6 +107,74 @@
 				}
 			}
 			
+			// Step 1.1 Draw something from menu
+			protected function menu_changeHandler(event:MenuEvent):void
+			{
+				var selectedItem:String = event.label;
+				if (mnBr.selectedIndex < 0)
+				{
+					// when toggling a tool off, deactivate it
+					myDrawTool.deactivate();
+				}
+				else
+				{
+					switch (selectedItem)
+					{
+						case "多段线":
+						{
+							myDrawTool.activate(DrawTool.POLYLINE);
+							spatialRel.dataProvider = spatialRelationshipOptions_linear;
+							break;
+						}
+						case "自由画线":
+						{
+							myDrawTool.activate(DrawTool.FREEHAND_POLYLINE);
+							spatialRel.dataProvider = spatialRelationshipOptions_linear;
+							break;
+						}
+						case "多边形":
+						{
+							myDrawTool.activate(DrawTool.POLYGON);
+							spatialRel.dataProvider = spatialRelationshipOptions_area;
+							break;
+						}
+						case "自由多边形":
+						{
+							myDrawTool.activate(DrawTool.FREEHAND_POLYGON);
+							spatialRel.dataProvider = spatialRelationshipOptions_area;
+							break;
+						}
+						case "长方形":
+						{
+							myDrawTool.activate(DrawTool.EXTENT);
+							spatialRel.dataProvider = spatialRelationshipOptions_area;
+							break;
+						}
+						case "圆":
+						{
+							myDrawTool.activate(DrawTool.CIRCLE);
+							spatialRel.dataProvider = spatialRelationshipOptions_area;
+							break;
+						}
+						case "椭圆":
+						{
+							myDrawTool.activate(DrawTool.ELLIPSE);
+							spatialRel.dataProvider = spatialRelationshipOptions_area;
+							break;
+						}
+						case "deactive":
+						{
+							myDrawTool.deactivate();
+							spatialRel.dataProvider.removeAll();
+							myGraphicsLayer.clear();
+							Alert.show("Runned2");
+							break;
+						}
+					}
+				}
+			}
+			
+			
 			// Step 2. Make sure input polygon is topologically correct
 			protected function myDrawTool_drawEndHandler(event:DrawEvent):void
 			{
@@ -203,14 +271,25 @@
 			import mx.collections.ArrayCollection;
 			
 			[Embed("assets/i_draw_line.png")]
-			public const BorderContainerIcon:Class;
+			public const Line:Class;
 			
-			[Embed("assets/i_draw_line.png")]
-			public const ButtonIcon:Class;
+			[Embed("assets/i_draw_freeline.png")]
+			public const FreeLine:Class;
 			
-			[Embed("assets/i_draw_line.png")]
-			public const ButtonBarIcon:Class;
+			[Embed("assets/i_draw_poly.png")]
+			public const Poly:Class;
 			
+			[Embed("assets/i_draw_freepoly.png")]
+			public const FreePoly:Class;
+			
+			[Embed("assets/i_draw_rect.png")]
+			public const Rect:Class;
+			
+			[Embed("assets/i_draw_circle.png")]
+			public const Circle:Class;
+			
+			[Embed("assets/i_draw_ellipse.png")]
+			public const Ellipse:Class;
 			
 			[Bindable]
 			public static var arrColl:ArrayCollection;
@@ -218,11 +297,16 @@
 			public function init():void {
 				/* BorderContainer */
 				var borderContainerProperties:Array = [];
-				borderContainerProperties.push({label:"backgroundFill : IFill"});
-				borderContainerProperties.push({label:"borderStroke : IStroke"});
+				borderContainerProperties.push({label:"多段线", icon:Line, id: "POLYLINE"});
+				borderContainerProperties.push({label:"自由画线", icon:FreeLine, id:"FREEHAND_POLYLINE"});
+				borderContainerProperties.push({label:"多边形", icon:Poly, id:"POLYGON"});
+				borderContainerProperties.push({label:"自由多边形", icon:FreePoly, id:"FREEHAND_POLYGON"});
+				borderContainerProperties.push({label:"长方形", icon:Rect, id:"EXTENT"});
+				borderContainerProperties.push({label:"圆", icon:Circle, id:"CIRCLE"});
+				borderContainerProperties.push({label:"椭圆", icon:Ellipse, id:"ELLIPSE"});
 				
 				var borderContainerMethods:Array = [];
-				borderContainerMethods.push({label:"BorderContainer()"});
+				borderContainerMethods.push({label:"deactive"});
 				
 				var borderContainerStyles:Array = [];
 				borderContainerStyles.push({label:"backgroundImage : Object"});
@@ -237,7 +321,7 @@
 				
 				var borderContainerEvents:Array = [];
 				
-				var borderContainerObj:Object = {label:"BorderContainer", icon:BorderContainerIcon,
+				var borderContainerObj:Object = {label:"BorderContainer",
 					children:[{label:"Properties:", children:borderContainerProperties},
 						{label:"Methods:", children:borderContainerMethods},
 						{label:"Styles:", children:borderContainerStyles},
@@ -249,7 +333,7 @@
 				var buttonStyles:Array = [];
 				var buttonEvents:Array = [];
 				
-				var buttonObj:Object = {label:"Button", icon:ButtonIcon,
+				var buttonObj:Object = {label:"Button", 
 					children:[{label:"Properties:", children:buttonProperties},
 						{label:"Methods:", children:buttonMethods},
 						{label:"Styles:", children:buttonStyles},
@@ -261,7 +345,7 @@
 				var buttonBarStyles:Array = [];
 				var buttonBarEvents:Array = [];
 				
-				var buttonBarObj:Object = {label:"Button", icon:ButtonBarIcon,
+				var buttonBarObj:Object = {label:"Button", 
 					children:[{label:"Properties:", children:buttonBarProperties},
 						{label:"Methods:", children:buttonBarMethods},
 						{label:"Styles:", children:buttonBarStyles},
@@ -357,7 +441,7 @@
 			</mx:MenuBar>-->
 			
 			<mx:MenuBar id="mnBr" x="7" width="327" height="20" dataProvider="{arrColl}"
-						iconField="icon" itemClick="menubar1_itemClickHandler(event)"
+						iconField="icon" itemClick="menu_changeHandler(event)"
 						labelField="label"/>	
 			
 		</s:VGroup>
