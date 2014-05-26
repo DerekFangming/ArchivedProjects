@@ -34,8 +34,7 @@
 			protected function login_pnl1_LoginOkHandler(event:Event):void
 			{
 				currentState = "EntryPanel";
-			}
-			
+			}					
 		]]>
 	</fx:Script>
 	<s:states>
