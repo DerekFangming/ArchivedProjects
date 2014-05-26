@@ -29,6 +29,7 @@
 			import mx.rpc.AsyncResponder;
 			import mx.rpc.events.FaultEvent;
 			
+			import spark.components.CheckBox;
 			import spark.events.IndexChangeEvent;
 			
 			[Bindable]
@@ -51,69 +52,14 @@
 					{ data: Query.SPATIAL_REL_WITHIN, label: "与所选区域重叠" }
 				]);
 			
-			// Step 1. Draw something
-			protected function tbb_changeHandler(event:IndexChangeEvent):void
-			{
-				var selectedItem:Object = ButtonBar(event.currentTarget).selectedItem;
-				if (tbb.selectedIndex < 0)
-				{
-					// when toggling a tool off, deactivate it
-					myDrawTool.deactivate();
-				}
-				else
-				{
-					switch (selectedItem.label)
-					{
-						case "POLYLINE":
-						{
-							myDrawTool.activate(DrawTool.POLYLINE);
-							spatialRel.dataProvider = spatialRelationshipOptions_linear;
-							break;
-						}
-						case "FREEHAND_POLYLINE":
-						{
-							myDrawTool.activate(DrawTool.FREEHAND_POLYLINE);
-							spatialRel.dataProvider = spatialRelationshipOptions_linear;
-							break;
-						}
-						case "POLYGON":
-						{
-							myDrawTool.activate(DrawTool.POLYGON);
-							spatialRel.dataProvider = spatialRelationshipOptions_area;
-							break;
-						}
-						case "FREEHAND_POLYGON":
-						{
-							myDrawTool.activate(DrawTool.FREEHAND_POLYGON);
-							spatialRel.dataProvider = spatialRelationshipOptions_area;
-							break;
-						}
-						case "EXTENT":
-						{
-							myDrawTool.activate(DrawTool.EXTENT);
-							spatialRel.dataProvider = spatialRelationshipOptions_area;
-							break;
-						}
-						case "CIRCLE":
-						{
-							myDrawTool.activate(DrawTool.CIRCLE);
-							spatialRel.dataProvider = spatialRelationshipOptions_area;
-							break;
-						}
-						case "ELLIPSE":
-						{
-							myDrawTool.activate(DrawTool.ELLIPSE);
-							spatialRel.dataProvider = spatialRelationshipOptions_area;
-							break;
-						}
-					}
-				}
-			}
 			
-			// Step 1.1 Draw something from menu
+
+			
+			// Step 1 Draw something from menu
 			protected function menu_changeHandler(event:MenuEvent):void
 			{
 				var selectedItem:String = event.label;
+				Alert.show(selectedItem);
 				if (mnBr.selectedIndex < 0)
 				{
 					// when toggling a tool off, deactivate it
@@ -126,51 +72,92 @@
 						case "多段线":
 						{
 							myDrawTool.activate(DrawTool.POLYLINE);
-							spatialRel.dataProvider = spatialRelationshipOptions_linear;
+						//	spatialRel.dataProvider = spatialRelationshipOptions_linear;
+							pushLineData();
 							break;
 						}
 						case "自由画线":
 						{
 							myDrawTool.activate(DrawTool.FREEHAND_POLYLINE);
-							spatialRel.dataProvider = spatialRelationshipOptions_linear;
+						//	spatialRel.dataProvider = spatialRelationshipOptions_linear;
+							pushLineData();
 							break;
 						}
 						case "多边形":
 						{
 							myDrawTool.activate(DrawTool.POLYGON);
-							spatialRel.dataProvider = spatialRelationshipOptions_area;
+						//	spatialRel.dataProvider = spatialRelationshipOptions_area;
+							pushPolyData();
 							break;
 						}
 						case "自由多边形":
 						{
 							myDrawTool.activate(DrawTool.FREEHAND_POLYGON);
-							spatialRel.dataProvider = spatialRelationshipOptions_area;
+						//	spatialRel.dataProvider = spatialRelationshipOptions_area;
+							pushPolyData();
 							break;
 						}
 						case "长方形":
 						{
 							myDrawTool.activate(DrawTool.EXTENT);
-							spatialRel.dataProvider = spatialRelationshipOptions_area;
+						//	spatialRel.dataProvider = spatialRelationshipOptions_area;
+							pushPolyData();
 							break;
 						}
 						case "圆":
 						{
 							myDrawTool.activate(DrawTool.CIRCLE);
-							spatialRel.dataProvider = spatialRelationshipOptions_area;
+						//	spatialRel.dataProvider = spatialRelationshipOptions_area;
+							pushPolyData();
 							break;
 						}
 						case "椭圆":
 						{
 							myDrawTool.activate(DrawTool.ELLIPSE);
-							spatialRel.dataProvider = spatialRelationshipOptions_area;
+						//	spatialRel.dataProvider = spatialRelationshipOptions_area;
+							pushPolyData();
 							break;
 						}
-						case "deactive":
+						case "贯穿画线":
+						{
+							currentLookUpMethod = Query.SPATIAL_REL_CROSSES;
+							break;
+						}
+						case "与画线相交":
+						{
+							currentLookUpMethod = Query.SPATIAL_REL_INTERSECTS;
+							break;
+						}
+						case "包含画线":
+						{
+							currentLookUpMethod = Query.SPATIAL_REL_WITHIN;
+							break;
+						}
+						case "在所选区域之中":
+						{
+							currentLookUpMethod = Query.SPATIAL_REL_CONTAINS;
+							break;
+						}
+						case "与所选区域相交或重叠":
+						{
+							currentLookUpMethod = Query.SPATIAL_REL_INTERSECTS;
+							break;
+						}
+						case "与所选区域相交":
+						{
+							currentLookUpMethod = Query.SPATIAL_REL_OVERLAPS;
+							break;
+						}
+						case "与所选区域重叠":
+						{
+							currentLookUpMethod = Query.SPATIAL_REL_WITHIN;
+							break;
+						}
+						case "清除":
 						{
 							myDrawTool.deactivate();
-							spatialRel.dataProvider.removeAll();
 							myGraphicsLayer.clear();
-							Alert.show("Runned2");
+							Alert.show("Runned");
 							break;
 						}
 					}
@@ -183,7 +170,7 @@
 			{
 				// reset after finished drawing a feature				
 				myDrawTool.deactivate();
-				tbb.selectedIndex = -1;
+				mnBr.selectedIndex = -1;
 				var geometry:Geometry = event.graphic.geometry;
 				if (geometry is Polygon && GeometryUtil.polygonSelfIntersecting(geometry as Polygon))
 				{
@@ -211,7 +198,8 @@
 					var query:Query = new Query();
 					
 										
-					query.spatialRelationship = spatialRel.selectedItem.data;
+			//		query.spatialRelationship = spatialRel.selectedItem.data;
+					query.spatialRelationship = currentLookUpMethod;
 					query.outFields=["LNDVALUE", "SCHLTXCD", "CNTASSDVAL"]
 					query.geometry = geom;
 					query.returnGeometry = true;
@@ -298,39 +286,53 @@
 			
 			[Bindable]
 			public static var arrColl:ArrayCollection;
+			public var lookUpMethod:Array = [];
+			public var currentLookUpMethod:String ="";
+			
+			private function pushLineData():void {
+				if(lookUpMethod.length == 4){
+					lookUpMethod.pop();
+					lookUpMethod.pop();
+					lookUpMethod.pop();
+					lookUpMethod.pop();
+				}
+				lookUpMethod.push({ data: Query.SPATIAL_REL_CROSSES, label: "贯穿画线"});
+				lookUpMethod.push({ data: Query.SPATIAL_REL_INTERSECTS, label: "与画线相交" });
+				lookUpMethod.push({ data: Query.SPATIAL_REL_WITHIN, label: "包含画线" });
+				currentLookUpMethod = Query.SPATIAL_REL_CROSSES;
+			}
+			
+			private function pushPolyData():void {
+				if(lookUpMethod.length == 3){
+					lookUpMethod.pop();
+					lookUpMethod.pop();
+					lookUpMethod.pop();
+				}
+				lookUpMethod.push({ data: Query.SPATIAL_REL_CONTAINS, label: "在所选区域之中" });
+				lookUpMethod.push({ data: Query.SPATIAL_REL_INTERSECTS, label: "与所选区域相交或重叠" });
+				lookUpMethod.push({ data: Query.SPATIAL_REL_OVERLAPS, label: "与所选区域相交" });
+				lookUpMethod.push({ data: Query.SPATIAL_REL_WITHIN, label: "与所选区域重叠" });
+				currentLookUpMethod = Query.SPATIAL_REL_CONTAINS;
+			}
 			
 			public function init():void {
 				/* BorderContainer */
-				var borderContainerProperties:Array = [];
-				borderContainerProperties.push({label:"多段线", icon:Line, id: "POLYLINE"});
-				borderContainerProperties.push({label:"自由画线", icon:FreeLine, id:"FREEHAND_POLYLINE"});
-				borderContainerProperties.push({label:"多边形", icon:Poly, id:"POLYGON"});
-				borderContainerProperties.push({label:"自由多边形", icon:FreePoly, id:"FREEHAND_POLYGON"});
-				borderContainerProperties.push({label:"长方形", icon:Rect, id:"EXTENT"});
-				borderContainerProperties.push({label:"圆", icon:Circle, id:"CIRCLE"});
-				borderContainerProperties.push({label:"椭圆", icon:Ellipse, id:"ELLIPSE"});
+				var selectTool:Array = [];
+				selectTool.push({label:"多段线", icon:Line});
+				selectTool.push({label:"自由画线", icon:FreeLine});
+				selectTool.push({label:"多边形", icon:Poly});
+				selectTool.push({label:"自由多边形", icon:FreePoly});
+				selectTool.push({label:"长方形", icon:Rect});
+				selectTool.push({label:"圆", icon:Circle});
+				selectTool.push({label:"椭圆", icon:Ellipse});
 				
 				var borderContainerMethods:Array = [];
-				borderContainerMethods.push({label:"deactive"});
+				borderContainerMethods.push({label:"清除"});
 				
-				var borderContainerStyles:Array = [];
-				borderContainerStyles.push({label:"backgroundImage : Object"});
-				borderContainerStyles.push({label:"backgroundImageFillMode : String"});
-				borderContainerStyles.push({label:"borderAlpha : Number"});
-				borderContainerStyles.push({label:"borderColor : uint"});
-				borderContainerStyles.push({label:"borderStyle : String"});
-				borderContainerStyles.push({label:"borderVisible : Boolean"});
-				borderContainerStyles.push({label:"borderWeight : Number"});
-				borderContainerStyles.push({label:"cornerRadius : Number"});
-				borderContainerStyles.push({label:"dropShadowVisible : Boolean"});
-				
-				var borderContainerEvents:Array = [];
-				
-				var borderContainerObj:Object = {label:"BorderContainer",
-					children:[{label:"Properties:", children:borderContainerProperties},
-						{label:"Methods:", children:borderContainerMethods},
-						{label:"Styles:", children:borderContainerStyles},
-						{label:"Events:", children:borderContainerEvents}]};
+				var menu:Object = {label:"菜单",
+					children:[{label:"选定区域:", children:selectTool},
+						{label:"选定方法:", children:lookUpMethod},
+						{label:"重新画图:", children:borderContainerMethods}]};
 				
 				/* Button */
 				var buttonProperties:Array = [];
@@ -356,7 +358,7 @@
 						{label:"Styles:", children:buttonBarStyles},
 						{label:"Events:", children:buttonBarEvents}]};
 				
-				arrColl = new ArrayCollection([borderContainerObj, buttonObj, buttonBarObj]);
+				arrColl = new ArrayCollection([menu, buttonObj, buttonBarObj]);
 			}
 			
 		]]>
@@ -404,51 +406,11 @@
 	
 	<s:controlBarContent>
 		<s:VGroup width="100%" height="100%" horizontalAlign="center">
-		<s:ButtonBar id="tbb" left="0" right="0" bottom="0" width="100%" height="50%"
-					 change="tbb_changeHandler(event)" labelField="" selectedIndex="-1">
-			<s:ArrayList>
-				<fx:Object icon="@Embed(source='assets/i_draw_line.png')" label="POLYLINE"/>
-				<fx:Object icon="@Embed(source='assets/i_draw_freeline.png')" label="FREEHAND_POLYLINE"/>
-				<fx:Object icon="@Embed(source='assets/i_draw_poly.png')" label="POLYGON"/>
-				<fx:Object icon="@Embed(source='assets/i_draw_freepoly.png')" label="FREEHAND_POLYGON"/>
-				<fx:Object icon="@Embed(source='assets/i_draw_rect.png')" label="EXTENT"/>
-				<fx:Object icon="@Embed(source='assets/i_draw_circle.png')" label="CIRCLE"/>
-				<fx:Object icon="@Embed(source='assets/i_draw_ellipse.png')" label="ELLIPSE"/>
-			</s:ArrayList>
-		</s:ButtonBar>
-		
-		<!--<s:VGroup width="100%"
-				  horizontalAlign="center">-->
-			<!--<s:Label x="39" width="100%" height="25%" text="Search for parcels:"/>-->
-			<s:ComboBox id="spatialRel" x="16" width="308" height="25%"
-						dataProvider="{spatialRelationshipOptions_area}" requireSelection="true"/>
-			<!--<mx:MenuBar width="95" height="35" 
-						itemClick="menubar1_itemClickHandler(event)" labelField="@label" iconField="@icon">
-				<mx:dataProvider>
-					<fx:XMLList>
-						<menuitem label="新建" icon="_addUser">
-							<menuitem label="联系人" icon="_addUser">
-								<menuitem label="联系人" icon="sendInfo"/>
-								<menuitem label="联系人" icon="_addUser"/>
-							</menuitem>
-							<menuitem label="分组"/>
-						</menuitem>
-						<menuitem label="加入组" icon="_addGroup">
-							<menuitem label="组一" />
-							<menuitem label="组二"/>
-							<menuitem label="组三"/>
-							<menuitem label="组四"/>
-							<menuitem type="separator"/>
-							<menuitem label="新建联系组"/>
-						</menuitem>
-						<menuitem label="发送短消息" icon="_sendMessage"/>
-						<menuitem label="编辑" icon="_editUser"/>
-						<menuitem label="删除" icon="_deleteUser"/>
-					</fx:XMLList>
-				</mx:dataProvider>
-			</mx:MenuBar>-->
+
+			<!--<s:ComboBox id="spatialRel" x="16" width="308" height="25%"
+						dataProvider="{spatialRelationshipOptions_area}" requireSelection="true"/>-->
 			
-			<mx:MenuBar id="mnBr" x="7" width="327" height="20" dataProvider="{arrColl}"
+			<mx:MenuBar id="mnBr" x="15" width="311" height="25" dataProvider="{arrColl}"
 						iconField="icon" itemClick="menu_changeHandler(event)"
 						labelField="label"/>	
 			
