@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="362" height="330"
-		 xmlns:esri="http://www.esri.com/2008/ags">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="362" height="330" creationComplete="application1_creationCompleteHandler(event)"
+		 xmlns:esri="http://www.esri.com/2008/ags"
+		 initialize="init();">
 	<fx:Script>
 		<![CDATA[
 			import com.esri.ags.FeatureSet;
@@ -30,18 +31,18 @@
 			[Bindable]
 			public var spatialRelationshipOptions_linear:ArrayCollection = new ArrayCollection(
 				[
-					{ data: Query.SPATIAL_REL_CROSSES, label: "whose borders crosses my line [SPATIAL_REL_CROSSES]" },
-					{ data: Query.SPATIAL_REL_INTERSECTS, label: "that my line intersects [SPATIAL_REL_INTERSECTS]" },
-					{ data: Query.SPATIAL_REL_WITHIN, label: "that contain my complete line [SPATIAL_REL_WITHIN]" }
+					{ data: Query.SPATIAL_REL_CROSSES, label: "贯穿画线" },
+					{ data: Query.SPATIAL_REL_INTERSECTS, label: "与画线相交" },
+					{ data: Query.SPATIAL_REL_WITHIN, label: "包含画线" }
 				]);
 			
 			[Bindable]
 			public var spatialRelationshipOptions_area:ArrayCollection = new ArrayCollection(
 				[
-					{ data: Query.SPATIAL_REL_CONTAINS, label: "that are inside my area [SPATIAL_REL_CONTAINS]" },
-					{ data: Query.SPATIAL_REL_INTERSECTS, label: "that are partially or completely within my area [SPATIAL_REL_INTERSECTS]" },
-					{ data: Query.SPATIAL_REL_OVERLAPS, label: "that are partially (but not fully) inside my area [SPATIAL_REL_OVERLAPS]" },
-					{ data: Query.SPATIAL_REL_WITHIN, label: "that my area is (fully) inside [SPATIAL_REL_WITHIN]" }
+					{ data: Query.SPATIAL_REL_CONTAINS, label: "在所选区域之中" },
+					{ data: Query.SPATIAL_REL_INTERSECTS, label: "与所选区域相交或重叠" },
+					{ data: Query.SPATIAL_REL_OVERLAPS, label: "与所选区域相交" },
+					{ data: Query.SPATIAL_REL_WITHIN, label: "与所选区域重叠" }
 				]);
 			
 			// Step 1. Draw something
@@ -153,7 +154,7 @@
 						}
 						else
 						{
-							Alert.show("No parcels were found", "Try something else");
+							Alert.show("未发现地块", "请再选一次");
 						}
 					}
 					function onFault(info:Object, token:Object = null):void
@@ -187,6 +188,114 @@
 				var fields:Array = event.featureSet.fields;
 				var attributes:Array = event.featureSet.attributes;
 				dg.dataProvider = new ArrayCollection(attributes);
+			}
+			
+			import mx.events.MenuEvent;
+			[Bindable]
+			private var menuData:XMLList;
+			
+			protected function application1_creationCompleteHandler(event:FlexEvent):void
+			{
+				menuData = <>
+							<menu label="Menu1">
+								<menu label = "M1_Item1">
+									<item label = "1" icon="sendInfo"/>
+									<item label = "M1_Item1_2"/>
+								</menu>
+								<item label = "M1_Item2"/>
+								<item label = "M1_Item3"/>
+								<fake type="separator" />
+								<item label = "M1_Item4"/>
+								<item label = "M1_Item5"/>
+							</menu>
+						
+							<menu label="Menu2">
+								<menu label = "M2_Item1">
+									<item label = "M2_Item1_1"/>
+									<item label = "M2_Item1_2"/>
+								</menu>
+								<item label = "M2_Item2"/>
+								<item label = "M2_Item3"/>
+								<fake type="separator" />
+								<item label = "M2_Item4"/>
+								<item label = "M2_Item5"/>
+							</menu>
+						</>;
+			}
+			
+			protected function menubar1_itemClickHandler(event:MenuEvent):void
+			{
+				Alert.show(event.item.@label,"ItemClick");
+			}
+			
+			import mx.collections.ArrayCollection;
+			
+			[Embed("assets/i_draw_line.png")]
+			public const BorderContainerIcon:Class;
+			
+			[Embed("assets/i_draw_line.png")]
+			public const ButtonIcon:Class;
+			
+			[Embed("assets/i_draw_line.png")]
+			public const ButtonBarIcon:Class;
+			
+			
+			[Bindable]
+			public static var arrColl:ArrayCollection;
+			
+			public function init():void {
+				/* BorderContainer */
+				var borderContainerProperties:Array = [];
+				borderContainerProperties.push({label:"backgroundFill : IFill"});
+				borderContainerProperties.push({label:"borderStroke : IStroke"});
+				
+				var borderContainerMethods:Array = [];
+				borderContainerMethods.push({label:"BorderContainer()"});
+				
+				var borderContainerStyles:Array = [];
+				borderContainerStyles.push({label:"backgroundImage : Object"});
+				borderContainerStyles.push({label:"backgroundImageFillMode : String"});
+				borderContainerStyles.push({label:"borderAlpha : Number"});
+				borderContainerStyles.push({label:"borderColor : uint"});
+				borderContainerStyles.push({label:"borderStyle : String"});
+				borderContainerStyles.push({label:"borderVisible : Boolean"});
+				borderContainerStyles.push({label:"borderWeight : Number"});
+				borderContainerStyles.push({label:"cornerRadius : Number"});
+				borderContainerStyles.push({label:"dropShadowVisible : Boolean"});
+				
+				var borderContainerEvents:Array = [];
+				
+				var borderContainerObj:Object = {label:"BorderContainer", icon:BorderContainerIcon,
+					children:[{label:"Properties:", children:borderContainerProperties},
+						{label:"Methods:", children:borderContainerMethods},
+						{label:"Styles:", children:borderContainerStyles},
+						{label:"Events:", children:borderContainerEvents}]};
+				
+				/* Button */
+				var buttonProperties:Array = [];
+				var buttonMethods:Array = [];
+				var buttonStyles:Array = [];
+				var buttonEvents:Array = [];
+				
+				var buttonObj:Object = {label:"Button", icon:ButtonIcon,
+					children:[{label:"Properties:", children:buttonProperties},
+						{label:"Methods:", children:buttonMethods},
+						{label:"Styles:", children:buttonStyles},
+						{label:"Events:", children:buttonEvents}]};
+				
+				/* ButtonBar */
+				var buttonBarProperties:Array = [];
+				var buttonBarMethods:Array = [];
+				var buttonBarStyles:Array = [];
+				var buttonBarEvents:Array = [];
+				
+				var buttonBarObj:Object = {label:"Button", icon:ButtonBarIcon,
+					children:[{label:"Properties:", children:buttonBarProperties},
+						{label:"Methods:", children:buttonBarMethods},
+						{label:"Styles:", children:buttonBarStyles},
+						{label:"Events:", children:buttonBarEvents}]};
+				
+				arrColl = new ArrayCollection([borderContainerObj, buttonObj, buttonBarObj]);
 			}
 			
 		]]>
@@ -246,9 +355,38 @@
 		
 		<!--<s:VGroup width="100%"
 				  horizontalAlign="center">-->
-			<s:Label x="39" width="100%" height="25%" text="Search for parcels:"/>
-			<s:ComboBox id="spatialRel" width="100%" height="25%"
+			<!--<s:Label x="39" width="100%" height="25%" text="Search for parcels:"/>-->
+			<s:ComboBox id="spatialRel" x="16" width="308" height="25%"
 						dataProvider="{spatialRelationshipOptions_area}" requireSelection="true"/>
+			<!--<mx:MenuBar width="95" height="35" 
+						itemClick="menubar1_itemClickHandler(event)" labelField="@label" iconField="@icon">
+				<mx:dataProvider>
+					<fx:XMLList>
+						<menuitem label="新建" icon="_addUser">
+							<menuitem label="联系人" icon="_addUser">
+								<menuitem label="联系人" icon="sendInfo"/>
+								<menuitem label="联系人" icon="_addUser"/>
+							</menuitem>
+							<menuitem label="分组"/>
+						</menuitem>
+						<menuitem label="加入组" icon="_addGroup">
+							<menuitem label="组一" />
+							<menuitem label="组二"/>
+							<menuitem label="组三"/>
+							<menuitem label="组四"/>
+							<menuitem type="separator"/>
+							<menuitem label="新建联系组"/>
+						</menuitem>
+						<menuitem label="发送短消息" icon="_sendMessage"/>
+						<menuitem label="编辑" icon="_editUser"/>
+						<menuitem label="删除" icon="_deleteUser"/>
+					</fx:XMLList>
+				</mx:dataProvider>
+			</mx:MenuBar>-->
+			
+			<mx:MenuBar id="mnBr" top="20" width="330" height="33" dataProvider="{arrColl}"
+						horizontalCenter="0" iconField="icon" labelField="label"/>	
+			
 		</s:VGroup>
 	</s:controlBarContent>
 	<esri:Map id="map">
@@ -272,5 +410,6 @@
 			</s:ArrayList>
 		</s:columns>
 	</s:DataGrid>
+	<!--<mx:MenuBar  id="data" left="5" bottom="3" width="95" height="35"></mx:MenuBar>-->
 </s:Panel>
 
