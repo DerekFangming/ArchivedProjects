@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fxpProperties abbreviated="false" authoringTool="Flex Builder" compiles="true" parentProject="54dfda91-d5e6-4117-8730-be855c1f527e" projectUUID="54dfda91-d5e6-4117-8730-be855c1f527e" pureCatalystProject="false" sdkVersion="4.6.0" uuid="bac44628-497f-4044-8eb4-5c56ecffaea8" version="15">
+  <projects/>
+  <src/>
+  <swc>
+    <linked location="sdkPlaceHolder" path="sdkPlaceHolder" position="0" uuid="bac44628-497f-4044-8eb4-5c56ecffaea8"/>
+    <linked location="C:/Users/Aifang/Adobe Flash Builder 4.6/phoneApp/libs" path="/libs" position="1" uuid="bac44628-497f-4044-8eb4-5c56ecffaea8"/>
+    <linked location="${PROJECT_FRAMEWORKS}/libs/mx" path="${PROJECT_FRAMEWORKS}/libs/mx" position="2" uuid="bac44628-497f-4044-8eb4-5c56ecffaea8"/>
+    <linked location="C:/Users/Aifang/Documents/ArcGIS_Flex/libs/agslib-3.4-2013-06-30.swc" path="/linked-swc/agslib-3.4-2013-06-30.swc" position="3" uuid="bac44628-497f-4044-8eb4-5c56ecffaea8"/>
+  </swc>
+  <misc/>
+  <theme/>
+  <mxmlFormattingPrefs groupAttributesByState="true" maxLineWidth="100" mxmlAlignAttributes="true" mxmlAttributeOrder="id,userLabel,includeIn,excludeFrom,visible,x,y,z,left,right,top,bottom,width,height,minWidth,minHeight,maxWidth,maxHeight,label" mxmlKeepAttributeValuesOrganized="true"/>
+</fxpProperties>

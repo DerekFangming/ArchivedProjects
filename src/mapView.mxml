@@ -135,20 +135,9 @@
 				{
 					var query:Query = new Query();
 					
-					var statsDef1:StatisticDefinition = new StatisticDefinition();
-					statsDef1.onStatisticField = "LNDVALUE";
-					statsDef1.outStatisticFieldName = "LNDVALUE";
-					statsDef1.statisticType = StatisticDefinition.TYPE_SUMMATION;
-					
-					var statsDef2:StatisticDefinition = new StatisticDefinition();
-					statsDef2.onStatisticField = "CNTASSDVAL";
-					statsDef2.outStatisticFieldName = "CNTASSDVAL";
-					statsDef2.statisticType = StatisticDefinition.TYPE_COUNT;
-					
-					query.groupByFieldsForStatistics = [ "SCHLTXCD" ];
-					query.outStatistics = [ statsDef1, statsDef2 ];
-					
+										
 					query.spatialRelationship = spatialRel.selectedItem.data;
+					query.outFields=["LNDVALUE", "SCHLTXCD", "CNTASSDVAL"]
 					query.geometry = geom;
 					query.returnGeometry = true;
 					queryTask.execute(query, new AsyncResponder(onResult, onFault));
@@ -230,6 +219,7 @@
 						useAMF="false"/>
 		<s:NumberFormatter id="numberFormatter" trailingZeros="false"/>
 	</fx:Declarations>
+	
 	<s:controlBarLayout>
 		<s:VerticalLayout gap="10"
 						  horizontalAlign="center"
@@ -240,10 +230,9 @@
 	</s:controlBarLayout>
 	
 	<s:controlBarContent>
-		<s:ButtonBar id="tbb"
-					 change="tbb_changeHandler(event)"
-					 labelField=""
-					 selectedIndex="-1">
+		<s:VGroup width="100%" height="100%" horizontalAlign="center">
+		<s:ButtonBar id="tbb" left="0" right="0" bottom="0" width="100%" height="50%"
+					 change="tbb_changeHandler(event)" labelField="" selectedIndex="-1">
 			<s:ArrayList>
 				<fx:Object icon="@Embed(source='assets/i_draw_line.png')" label="POLYLINE"/>
 				<fx:Object icon="@Embed(source='assets/i_draw_freeline.png')" label="FREEHAND_POLYLINE"/>
@@ -255,15 +244,12 @@
 			</s:ArrayList>
 		</s:ButtonBar>
 		
-		<s:HGroup width="100%"
-				  horizontalAlign="center"
-				  verticalAlign="baseline">
-			<s:Label text="Search for parcels"/>
-			<s:ComboBox id="spatialRel"
-						width="80%"
-						dataProvider="{spatialRelationshipOptions_area}"
-						requireSelection="true"/>
-		</s:HGroup>
+		<!--<s:VGroup width="100%"
+				  horizontalAlign="center">-->
+			<s:Label x="39" width="100%" height="25%" text="Search for parcels:"/>
+			<s:ComboBox id="spatialRel" width="100%" height="25%"
+						dataProvider="{spatialRelationshipOptions_area}" requireSelection="true"/>
+		</s:VGroup>
 	</s:controlBarContent>
 	<esri:Map id="map">
 		<esri:ArcGISDynamicMapServiceLayer url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer"/>
@@ -271,6 +257,7 @@
 	</esri:Map>
 	
 	<s:DataGrid id="dg"
+				alpha="0.5"
 				width="280"
 				right="20" top="20">
 		<s:columns>
