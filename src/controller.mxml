@@ -47,16 +47,15 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Button id="backBtn" includeIn="EntryPanel,ResultPanel" left="5" bottom="5"
+	<s:Button id="backBtn" includeIn="EntryPanel,ResultPanel" left="10" bottom="2"
 			  click="backBtn_clickHandler(event)" icon=""
-			  left.EntryPanel="10" bottom.EntryPanel="29" 
+			  left.EntryPanel="177" bottom.EntryPanel="2" height.EntryPanel="45"
 			  icon.EntryPanel="assets/backward.png"
-			  left.ResultPanel="10" bottom.ResultPanel="39" 			  
-			  icon.ResultPanel="assets/backward.png"/>
-	<s:Button id="fwdBtn" includeIn="EntryPanel" right="10" bottom="29"
+			  left.ResultPanel="10" bottom.ResultPanel="2" icon.ResultPanel="assets/backward.png"/>
+	<s:Button id="fwdBtn" includeIn="EntryPanel" right="10" bottom="2"
 			  click="fwdBtn_clickHandler(event)" icon="assets/forward.png"/>
-	<ns1:login includeIn="LoginPanel" width="320" height="460" horizontalCenter="0"
-			   LoginOk="login_pnl1_LoginOkHandler(event)" verticalCenter="-10"> 
+	<ns1:login includeIn="LoginPanel" width="320" height="480" horizontalCenter="0"
+			   LoginOk="login_pnl1_LoginOkHandler(event)" verticalCenter="0"> 
 	</ns1:login>
 	<ns1:mapView includeIn="EntryPanel" width="320" height="460" horizontalCenter="-1"
 				 verticalCenter="-49">
