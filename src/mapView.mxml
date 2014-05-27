@@ -158,6 +158,7 @@
 							myDrawTool.deactivate();
 							//spatialRel.dataProvider.removeAll();
 
+
 							myGraphicsLayer.clear();
 							Alert.show("Runned");
 							break;
@@ -242,10 +243,7 @@
 				Alert.show(event.fault.faultString + "\n\n" + event.fault.faultDetail, "GeometryService Fault " + event.fault.faultCode);
 			}
 			
-			protected function sumLabelFunction(item:Object, column:GridColumn):String
-			{
-				return numberFormatter.format(item["POP_SUM"]);
-			}
+
 			
 			protected function queryTask_executeCompleteHandler(event:QueryEvent):void
 			{
@@ -253,8 +251,7 @@
 				var attributes:Array = event.featureSet.attributes;				
 				 dgArr= new ArrayCollection(attributes);
 				 result_pnl.arr=dgArr;
-				 dg.dataProvider=dgArr;				 
-//				dgArr = new ArrayCollection(attributes);
+
 			}
 			
 			import mx.events.MenuEvent;
@@ -400,23 +397,9 @@
 				<esri:GraphicsLayer id="myGraphicsLayer"/>
 			</esri:Map>
 			
-
-	
-	<s:DataGrid id="dg" right="20" top="20" width="280" alpha="0.5" visible="false">
-		<s:columns>
-			<s:ArrayList>
-				<s:GridColumn dataField="SCHLTXCD" headerText="SCHLTXCD"/>
-				<s:GridColumn dataField="LNDVALUE"
-							  headerText="LNDVALUE"/>
-				<!--labelFunction="sumLabelFunction"/>-->
-				<s:GridColumn width="49"
-							  dataField="CNTASSDVAL"
-							  headerText="Count"/>
-			</s:ArrayList>
-		</s:columns>
-	</s:DataGrid>
 	<mx:MenuBar id="mnBr" x="45" y="-35" width="230" height="45" dataProvider="{arrColl}"
 				iconField="icon" itemClick="menu_changeHandler(event)" labelField="label"/>
 	<!--<mx:MenuBar  id="data" left="5" bottom="3" width="95" height="35"></mx:MenuBar>-->
 </s:Group>
+
 

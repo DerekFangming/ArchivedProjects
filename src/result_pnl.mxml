@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 		 xmlns:s="library://ns.adobe.com/flex/spark"
-		 xmlns:mx="library://ns.adobe.com/flex/mx" initialize="group1_initializeHandler(event)"
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
 		 xmlns:ns1="*"
 		 width="320" height="480">
 	<fx:Script>
@@ -16,23 +16,6 @@
 
 			[Bindable]
 			public static var arr:ArrayCollection=new ArrayCollection();
-
-//			public static function getdata(event:FlexEvent):void
-//			{					
-//				
-//				dg.dataProvider=arr;
-//				dg0.dataProvider=arr;
-//						
-//			}
-			
-			
-			
-			protected function group1_initializeHandler(event:FlexEvent):void
-			{
-				// TODO Auto-generated method stub
-				dg.dataProvider=arr;
-				dg0.dataProvider=arr;
-			}
 			
 		]]>
 	</fx:Script>
@@ -51,7 +34,7 @@
 			</s:ArrayList>
 		</s:columns>
 	</s:DataGrid>
-	<s:DataGrid id="dg0" x="0" y="173" alpha="0.5" verticalScrollPolicy="auto" dataProvider="{arr}">
+	<s:DataGrid id="dg0" x="0" y="173" alpha="0.5" verticalScrollPolicy="auto" dataProvider="{arr} " visible="false">
 		<s:columns>
 			<s:ArrayList>
 				<s:GridColumn dataField="SCHLTXCD" headerText="SCHLTXCD"/>
