@@ -2,7 +2,7 @@
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="320" minHeight="480" pageTitle="browser_style" xmlns:ns1="*"
-			   creationComplete="application1_creationCompleteHandler(event)"  viewSourceURL="srcview/index.html">
+			   creationComplete="application1_creationCompleteHandler(event)"  viewSourceURL="srcview/index.html" xmlns:skins="skins.*">
 	<s:layout>
 		<s:BasicLayout/>
 	</s:layout>
@@ -49,12 +49,12 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Button id="backBtn" includeIn="EntryPanel,ResultPanel" left="10" bottom="2"
-			  click="backBtn_clickHandler(event)" icon=""
-			  left.EntryPanel="0" bottom.EntryPanel="435" height.EntryPanel="45"
-			  icon.EntryPanel="assets/backward.png"
-			  left.ResultPanel="0" bottom.ResultPanel="435" icon.ResultPanel="assets/backward.png"/>
-	<s:Button id="fwdBtn" includeIn="EntryPanel" right="0" bottom="435"
+	<s:Button skinClass="skins.myButtonSkin" id="backBtn" includeIn="EntryPanel,ResultPanel" left="10" bottom="2"
+			  icon="assets/backward.png"
+			  click="backBtn_clickHandler(event)" 
+			  left.EntryPanel="0" bottom.EntryPanel="435" height.EntryPanel="45"						
+			  left.ResultPanel="0" bottom.ResultPanel="435" />
+	<s:Button skinClass="skins.myButtonSkin" id="fwdBtn" includeIn="EntryPanel" right="0" bottom="435" 
 			  click="fwdBtn_clickHandler(event)" icon="assets/forward.png"/>
 	<ns1:login includeIn="LoginPanel" width="320" height="480" horizontalCenter="0"
 			   LoginOk="login_pnl1_LoginOkHandler(event)" verticalCenter="0"> 
