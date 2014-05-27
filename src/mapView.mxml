@@ -157,7 +157,7 @@
 						{
 							myDrawTool.deactivate();
 							//spatialRel.dataProvider.removeAll();
-							spatialRel.dataProvider=null;
+//							spatialRel.dataProvider=null;
 
 							myGraphicsLayer.clear();
 							Alert.show("Runned");
@@ -243,10 +243,7 @@
 				Alert.show(event.fault.faultString + "\n\n" + event.fault.faultDetail, "GeometryService Fault " + event.fault.faultCode);
 			}
 			
-			protected function sumLabelFunction(item:Object, column:GridColumn):String
-			{
-				return numberFormatter.format(item["POP_SUM"]);
-			}
+
 			
 			protected function queryTask_executeCompleteHandler(event:QueryEvent):void
 			{
@@ -254,8 +251,7 @@
 				var attributes:Array = event.featureSet.attributes;				
 				 dgArr= new ArrayCollection(attributes);
 				 result_pnl.arr=dgArr;
-				 dg.dataProvider=dgArr;				 
-//				dgArr = new ArrayCollection(attributes);
+
 			}
 			
 			import mx.events.MenuEvent;
@@ -424,20 +420,6 @@
 		<esri:ArcGISDynamicMapServiceLayer url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer"/>
 		<esri:GraphicsLayer id="myGraphicsLayer"/>
 	</esri:Map>
-	
-	<s:DataGrid id="dg" right="20" top="20" width="280" alpha="0.5" visible="true">
-		<s:columns>
-			<s:ArrayList>
-				<s:GridColumn dataField="SCHLTXCD" headerText="SCHLTXCD"/>
-				<s:GridColumn dataField="LNDVALUE"
-							  headerText="LNDVALUE"/>
-				<!--labelFunction="sumLabelFunction"/>-->
-				<s:GridColumn width="49"
-							  dataField="CNTASSDVAL"
-							  headerText="Count"/>
-			</s:ArrayList>
-		</s:columns>
-	</s:DataGrid>
-	<!--<mx:MenuBar  id="data" left="5" bottom="3" width="95" height="35"></mx:MenuBar>-->
+
 </s:Panel>
 
