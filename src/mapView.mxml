@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="362" height="330" 
-		 xmlns:esri="http://www.esri.com/2008/ags"		 
-		 initialize="init();">
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:esri="http://www.esri.com/2008/ags"
+		 width="362" height="330" initialize="init();">
 	<fx:Script>
 		<![CDATA[
 			import com.esri.ags.FeatureSet;
@@ -157,7 +157,6 @@
 						{
 							myDrawTool.deactivate();
 							//spatialRel.dataProvider.removeAll();
-							spatialRel.dataProvider=null;
 
 							myGraphicsLayer.clear();
 							Alert.show("Runned");
@@ -260,11 +259,6 @@
 			
 			import mx.events.MenuEvent;
 			
-			protected function menubar1_itemClickHandler(event:MenuEvent):void
-			{
-				Alert.show(event.item.label,"ItemClick");
-			}
-			
 			import mx.collections.ArrayCollection;
 			
 			[Embed("assets/i_draw_line.png")]
@@ -320,6 +314,9 @@
 			}
 			
 			public function init():void {
+				this.setStyle("headerHeight", 0);
+				
+				
 				/* BorderContainer */
 				var selectTool:Array = [];
 				selectTool.push({label:"多段线", icon:Line});
@@ -343,6 +340,7 @@
 				var buttonMethods:Array = [];
 				var buttonStyles:Array = [];
 				var buttonEvents:Array = [];
+				buttonEvents.push({label:"haha", icon:Ellipse});
 				
 				var buttonObj:Object = {label:"Button", 
 					children:[{label:"Properties:", children:buttonProperties},
@@ -350,17 +348,9 @@
 						{label:"Styles:", children:buttonStyles},
 						{label:"Events:", children:buttonEvents}]};
 				
-				/* ButtonBar */
-				var buttonBarProperties:Array = [];
-				var buttonBarMethods:Array = [];
-				var buttonBarStyles:Array = [];
-				var buttonBarEvents:Array = [];
 				
-				var buttonBarObj:Object = {label:"Button", 
-					children:[{label:"Properties:", children:buttonBarProperties},
-						{label:"Methods:", children:buttonBarMethods},
-						{label:"Styles:", children:buttonBarStyles},
-						{label:"Events:", children:buttonBarEvents}]};
+				
+				var buttonBarObj:Object = {label:"Button", children: buttonEvents};
 				
 				arrColl = new ArrayCollection([menu, buttonObj, buttonBarObj]);
 			}
@@ -399,33 +389,20 @@
 		<s:NumberFormatter id="numberFormatter" trailingZeros="false"/>
 	</fx:Declarations>
 	
-	<s:controlBarLayout>
-		<s:VerticalLayout gap="10"
-						  horizontalAlign="center"
-						  paddingBottom="7"
-						  paddingLeft="10"
-						  paddingRight="10"
-						  paddingTop="7"/>
-	</s:controlBarLayout>
+
 	
-	<s:controlBarContent>
-		<s:VGroup width="100%" height="100%" horizontalAlign="center">
 
 			<!--<s:ComboBox id="spatialRel" x="16" width="308" height="25%"
 						dataProvider="{spatialRelationshipOptions_area}" requireSelection="true"/>-->
 			
-			<mx:MenuBar id="mnBr" x="15" width="311" height="25" dataProvider="{arrColl}"
-						iconField="icon" itemClick="menu_changeHandler(event)"
-						labelField="label"/>	
+			<esri:Map id="map" x="0" y="10" width="326" height="430">
+				<esri:ArcGISDynamicMapServiceLayer url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer"/>
+				<esri:GraphicsLayer id="myGraphicsLayer"/>
+			</esri:Map>
 			
-		</s:VGroup>
-	</s:controlBarContent>
-	<esri:Map id="map">
-		<esri:ArcGISDynamicMapServiceLayer url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer"/>
-		<esri:GraphicsLayer id="myGraphicsLayer"/>
-	</esri:Map>
+
 	
-	<s:DataGrid id="dg" right="20" top="20" width="280" alpha="0.5" visible="true">
+	<s:DataGrid id="dg" right="20" top="20" width="280" alpha="0.5" visible="false">
 		<s:columns>
 			<s:ArrayList>
 				<s:GridColumn dataField="SCHLTXCD" headerText="SCHLTXCD"/>
@@ -438,6 +415,8 @@
 			</s:ArrayList>
 		</s:columns>
 	</s:DataGrid>
+	<mx:MenuBar id="mnBr" x="45" y="-35" width="230" height="45" dataProvider="{arrColl}"
+				iconField="icon" itemClick="menu_changeHandler(event)" labelField="label"/>
 	<!--<mx:MenuBar  id="data" left="5" bottom="3" width="95" height="35"></mx:MenuBar>-->
-</s:Panel>
+</s:Group>
 
