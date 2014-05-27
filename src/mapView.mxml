@@ -204,7 +204,7 @@
 							currentLookUpMethod = Query.SPATIAL_REL_WITHIN;
 							break;
 						}
-						case "查看数据设置":
+						case "查询数据设置":
 						{
 							(new SettingPopup()).open(this, false);
 							break;
@@ -255,7 +255,7 @@
 										
 			//		query.spatialRelationship = spatialRel.selectedItem.data;
 					query.spatialRelationship = currentLookUpMethod;
-					query.outFields=["LNDVALUE", "SCHLTXCD", "CNTASSDVAL"]
+					query.outFields=[selectionLabel1, selectionLabel2, selectionLabel3]
 					query.geometry = geom;
 					query.returnGeometry = true;
 					queryTask.execute(query, new AsyncResponder(onResult, onFault));
@@ -389,7 +389,7 @@
 				var buttonMethods:Array = [];
 				var buttonStyles:Array = [];
 				var buttonEvents:Array = [];
-				buttonEvents.push({label:"查看数据设置"});
+				buttonEvents.push({label:"查询数据设置"});
 				
 				var buttonObj:Object = {label:"Button", 
 					children:[{label:"Properties:", children:buttonProperties},
@@ -399,15 +399,37 @@
 				
 				
 				
-				var buttonBarObj:Object = {label:"查看数据", children: buttonEvents};
+				var buttonBarObj:Object = {label:"查询数据", children: buttonEvents};
 				
 				arrColl = new ArrayCollection([menu, buttonObj, buttonBarObj]);
 			}
-			public static function updateSelection(e:IndexChangeEvent):void
+			[Bindable]
+			public static var selectionLabel1:String = "LNDVALUE";
+			[Bindable]
+			public static var selectionLabel2:String = "SCHLTXCD";
+			[Bindable]
+			public static var selectionLabel3:String = "CNTASSDVAL";
+			
+			public static function updateSelection1(e:IndexChangeEvent):void
 			{
-				Alert.show("success");
+				var selectedIndex:int = e.newIndex;
+				var selectedItem:String = mapView.searchValue.getItemAt(selectedIndex).data;
+				selectionLabel1 = selectedItem;
 			}
 			
+			public static function updateSelection2(e:IndexChangeEvent):void
+			{
+				var selectedIndex:int = e.newIndex;
+				var selectedItem:String = mapView.searchValue.getItemAt(selectedIndex).data;
+				selectionLabel2 = selectedItem;
+			}
+			
+			public static function updateSelection3(e:IndexChangeEvent):void
+			{
+				var selectedIndex:int = e.newIndex;
+				var selectedItem:String = mapView.searchValue.getItemAt(selectedIndex).data;
+				selectionLabel3 = selectedItem;
+			}
 		]]>
 	</fx:Script>
 	<s:states>
@@ -460,21 +482,18 @@
 	<fx:Declarations>
 		<fx:Component className="SettingPopup">
 			<s:SkinnablePopUpContainer x="10" y="50">
-				<s:Panel title="查看数据设置"  width="300" height="335">
+				<s:Panel title="查询数据设置"  width="300" height="335" id="selectionPanel">
 					<s:VGroup width="100%" horizontalAlign="center"
-							  paddingTop="20" gap="10">
+							  paddingTop="20" gap="15">
 						<s:Label text="数据1"/>
-						
-						<flextras:DropDownList id="selection1" x="16" width="200" height="30" prompt="Select One"
-										 dataProvider="{mapView.searchValue}"
-										labelField="label"
-										change="mapView.updateSelection(event);"/>
+						<flextras:DropDownList id="selection1" x="16" width="200" height="30" requireSelection="true"
+										 dataProvider="{mapView.searchValue}" change="mapView.updateSelection1(event);"/>
 						<s:Label text="数据2"/>
-						<flextras:DropDownList id="selection2" x="16" width="200" height="25%"
-									dataProvider="{mapView.searchValue}" requireSelection="true"/>
+						<flextras:DropDownList id="selection2" x="16" width="200" height="30" requireSelection="true"
+											   dataProvider="{mapView.searchValue}" change="mapView.updateSelection2(event);"/>
 						<s:Label text="数据3"/>
-						<flextras:DropDownList id="selection3" x="16" width="200" height="25%" 
-									dataProvider="{mapView.searchValue}" requireSelection="true"/>
+						<flextras:DropDownList id="selection3" x="16" width="200" height="30" requireSelection="true"
+											   dataProvider="{mapView.searchValue}" change="mapView.updateSelection3(event);"/>
 						<s:Button label="OK" click="close();"/>
 					</s:VGroup>
 				</s:Panel>

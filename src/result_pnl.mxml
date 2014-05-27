@@ -11,11 +11,21 @@
 			import flash.sampler.NewObjectSample;
 			
 			import mx.collections.ArrayCollection;
+			import mx.controls.Label;
 			import mx.events.FlexEvent;
 			
 
 			[Bindable]
-			public static var arr:ArrayCollection=new ArrayCollection();
+ 			public static var arr:ArrayCollection=new ArrayCollection();
+			
+			
+//			this.column1.dataTipField = mapView.selectionLabel1;
+//			this.column1.headerText = mapView.selectionLabel1;
+//			this.column2.dataTipField = mapView.selectionLabel2;
+//			this.column2.headerText = mapView.selectionLabel2;
+//			this.column3.dataTipField = mapView.selectionLabel3;
+//			this.column3.headerText = mapView.selectionLabel3;
+			
 			
 		]]>
 	</fx:Script>
@@ -28,18 +38,9 @@
 		
 		<s:columns>
 			<s:ArrayList>
-				<s:GridColumn dataField="SCHLTXCD" headerText="SCHLTXCD"/>
-				<s:GridColumn dataField="LNDVALUE" headerText="LNDVALUE"/>				
-				<s:GridColumn dataField="CNTASSDVAL" headerText="Count"/>
-			</s:ArrayList>
-		</s:columns>
-	</s:DataGrid>
-	<s:DataGrid id="dg0" x="0" y="173" alpha="0.5" verticalScrollPolicy="auto" dataProvider="{arr} " visible="false">
-		<s:columns>
-			<s:ArrayList>
-				<s:GridColumn dataField="SCHLTXCD" headerText="SCHLTXCD"/>
-				<s:GridColumn dataField="LNDVALUE" headerText="LNDVALUE"/>				
-				<s:GridColumn dataField="CNTASSDVAL" headerText="Count"/>
+				<s:GridColumn id="column1" dataField="{mapView.selectionLabel1}" headerText="@{mapView.selectionLabel1}"/>
+				<s:GridColumn id="column2" dataField="{mapView.selectionLabel2}" headerText="@{mapView.selectionLabel2}"/>				
+				<s:GridColumn id="column3" dataField="{mapView.selectionLabel3}" headerText="@{mapView.selectionLabel3}"/>
 			</s:ArrayList>
 		</s:columns>
 	</s:DataGrid>
