@@ -43,5 +43,6 @@
 			</s:ArrayList>
 		</s:columns>
 	</s:DataGrid>
+	<s:TextArea x="0" y="255" width="320" height="215"/>
 	
 </s:Group>

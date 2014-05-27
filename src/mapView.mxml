@@ -4,6 +4,7 @@
 		 xmlns:s="library://ns.adobe.com/flex/spark"
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 xmlns:esri="http://www.esri.com/2008/ags"
+		 xmlns:flextras="http://www.flextras.com/mxml"
 		 width="362" height="330" initialize="init();">
 	<fx:Script>
 		<![CDATA[
@@ -52,14 +53,64 @@
 					{ data: Query.SPATIAL_REL_WITHIN, label: "与所选区域重叠" }
 				]);
 			
-			
+			[Bindable]
+			public static var searchValue:ArrayCollection = new ArrayCollection(
+				[
+					{ data: "OBJECTID", label: "1" },
+					{ data: "LOWPARCELID", label: "2" },
+					{ data: "PARCELID", label: "3" },
+					{ data: "BUILDING", label: "" },
+					{ data: "UNIT", label: "" },
+					{ data: "CVTTXCD", label: "" },
+					{ data: "CVTTXDSCRP", label: "" },
+					{ data: "SCHLTXCD", label: "" },
+					{ data: "SCHLDSCRP", label: "" },
+					{ data: "USECD", label: "" },
+					{ data: "USEDSCRP", label: "" },
+					{ data: "NGHBRHDCD", label: "" },
+					{ data: "CLASSCD", label: "" },
+					{ data: "CLASSDSCRP", label: "" },
+					{ data: "SITEADDRESS", label: "" },
+					{ data: "PRPRTYDSCRP", label: "" },
+					{ data: "CNVYNAME", label: "" },
+					{ data: "OWNERNME1", label: "" },
+					{ data: "OWNERNME2", label: "" },
+					{ data: "PSTLADDRESS", label: "" },
+					{ data: "PSTLCITY", label: "" },
+					{ data: "PSTLSTATE", label: "" },
+					{ data: "PSTLZIP5", label: "" },
+					{ data: "PSTLZIP4", label: "" },
+					{ data: "RESFLRAREA", label: "" },
+					{ data: "RESYRBLT", label: "" },
+					{ data: "RESSTRTYP", label: "" },
+					{ data: "STRCLASS", label: "" },
+					{ data: "CLASSMOD", label: "" },
+					{ data: "LNDVALUE", label: "" },
+					{ data: "PRVASSDVAL", label: "" },
+					{ data: "CNTASSDVAL", label: "" },
+					{ data: "ASSDVALYRCG", label: "" },
+					{ data: "ASSDPCNTCG", label: "" },
+					{ data: "PRVTXBLVAL", label: "" },
+					{ data: "CNTTXBLVAL", label: "" },
+					{ data: "TXBLVALYRCHG", label: "" },
+					{ data: "TXBLPCNTCHG", label: "" },
+					{ data: "PRVWNTTXOD", label: "" },
+					{ data: "PRVSMRTXOD", label: "" },
+					{ data: "TOTPRVTXTOD", label: "" },
+					{ data: "CNTWNTTXOD", label: "" },
+					{ data: "CNTSMRTXOD", label: "" },
+					{ data: "TOTCNTTXOD", label: "" },
+					{ data: "TXODYRCHG", label: "" },
+					{ data: "TXODPCNTCHG", label: "" },
+					{ data: "LASTUPDATE", label: "" }
+				]);
 
 			
 			// Step 1 Draw something from menu
 			protected function menu_changeHandler(event:MenuEvent):void
 			{
 				var selectedItem:String = event.label;
-				Alert.show(selectedItem);
+				//Alert.show(selectedItem);
 				if (mnBr.selectedIndex < 0)
 				{
 					// when toggling a tool off, deactivate it
@@ -153,14 +204,15 @@
 							currentLookUpMethod = Query.SPATIAL_REL_WITHIN;
 							break;
 						}
+						case "查看数据设置":
+						{
+							(new SettingPopup()).open(this, false);
+							break;
+						}
 						case "清除":
 						{
 							myDrawTool.deactivate();
-							//spatialRel.dataProvider.removeAll();
-
-
 							myGraphicsLayer.clear();
-							Alert.show("Runned");
 							break;
 						}
 					}
@@ -337,7 +389,7 @@
 				var buttonMethods:Array = [];
 				var buttonStyles:Array = [];
 				var buttonEvents:Array = [];
-				buttonEvents.push({label:"haha", icon:Ellipse});
+				buttonEvents.push({label:"查看数据设置"});
 				
 				var buttonObj:Object = {label:"Button", 
 					children:[{label:"Properties:", children:buttonProperties},
@@ -347,9 +399,13 @@
 				
 				
 				
-				var buttonBarObj:Object = {label:"Button", children: buttonEvents};
+				var buttonBarObj:Object = {label:"查看数据", children: buttonEvents};
 				
 				arrColl = new ArrayCollection([menu, buttonObj, buttonBarObj]);
+			}
+			public static function updateSelection(e:IndexChangeEvent):void
+			{
+				Alert.show("success");
 			}
 			
 		]]>
@@ -392,7 +448,7 @@
 			<!--<s:ComboBox id="spatialRel" x="16" width="308" height="25%"
 						dataProvider="{spatialRelationshipOptions_area}" requireSelection="true"/>-->
 			
-			<esri:Map id="map" x="0" y="10" width="326" height="430">
+			<esri:Map id="map" x="0" y="10" width="326" height="435">
 				<esri:ArcGISDynamicMapServiceLayer url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer"/>
 				<esri:GraphicsLayer id="myGraphicsLayer"/>
 			</esri:Map>
@@ -400,6 +456,31 @@
 	<mx:MenuBar id="mnBr" x="45" y="-35" width="230" height="45" dataProvider="{arrColl}"
 				iconField="icon" itemClick="menu_changeHandler(event)" labelField="label"/>
 	<!--<mx:MenuBar  id="data" left="5" bottom="3" width="95" height="35"></mx:MenuBar>-->
+	
+	<fx:Declarations>
+		<fx:Component className="SettingPopup">
+			<s:SkinnablePopUpContainer x="10" y="50">
+				<s:Panel title="查看数据设置"  width="300" height="335">
+					<s:VGroup width="100%" horizontalAlign="center"
+							  paddingTop="20" gap="10">
+						<s:Label text="数据1"/>
+						
+						<flextras:DropDownList id="selection1" x="16" width="200" height="30" prompt="Select One"
+										 dataProvider="{mapView.searchValue}"
+										labelField="label"
+										change="mapView.updateSelection(event);"/>
+						<s:Label text="数据2"/>
+						<flextras:DropDownList id="selection2" x="16" width="200" height="25%"
+									dataProvider="{mapView.searchValue}" requireSelection="true"/>
+						<s:Label text="数据3"/>
+						<flextras:DropDownList id="selection3" x="16" width="200" height="25%" 
+									dataProvider="{mapView.searchValue}" requireSelection="true"/>
+						<s:Button label="OK" click="close();"/>
+					</s:VGroup>
+				</s:Panel>
+			</s:SkinnablePopUpContainer>
+		</fx:Component>
+	</fx:Declarations>
 </s:Group>
 
 
