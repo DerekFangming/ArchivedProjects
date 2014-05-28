@@ -149,10 +149,8 @@
 			protected function menu_changeHandler(event:MenuEvent):void
 			{
 				var selectedItem:String = event.label;
-				//Alert.show(selectedItem);
 				if (mnBr.selectedIndex < 0)
 				{
-					// when toggling a tool off, deactivate it
 					myDrawTool.deactivate();
 				}
 				else
@@ -283,11 +281,7 @@
 				try
 				{
 					var query:Query = new Query();
-					
-										
-			//		query.spatialRelationship = spatialRel.selectedItem.data;
 					query.spatialRelationship = currentLookUpMethod;
-					//query.outFields=[selectionLabel1, selectionLabel2, selectionLabel3]
 					query.outFields=["*"]
 					query.geometry = geom;
 					query.returnGeometry = true;
@@ -464,7 +458,7 @@
 			</esri:Map>
 			
 	<mx:MenuBar id="mnBr" x="25" y="-35" width="270" height="25" dataProvider="{arrColl}"
-				iconField="icon" itemClick="menu_changeHandler(event)" labelField="label"/>
+				iconField="icon" itemClick="menu_changeHandler(event)" labelField="label" />
 	
 	<fx:Declarations>
 		<fx:Component className="SettingPopup">

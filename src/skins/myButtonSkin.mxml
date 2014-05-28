@@ -34,7 +34,7 @@
 				<s:HorizontalLayout gap="0"/>
 			</s:layout>
 			<s:BitmapImage id="iconDisplay" width="100%" height="100%" />			
-			<s:Label id="labelDisplay" />
+			<s:Label id="labelDisplay"  />
 		</s:Group>
 	</s:Group>
 

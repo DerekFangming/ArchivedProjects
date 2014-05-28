@@ -1,5 +1,6 @@
 /* CSS file */
 @namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
 
 
 global
@@ -7,3 +8,7 @@ global
 	content-background-alpha: 0.5;
 }
 	
+
+mx|MenuBar{
+	contentBackdroundColor : red;
+}
