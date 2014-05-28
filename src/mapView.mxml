@@ -5,7 +5,8 @@
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 xmlns:esri="http://www.esri.com/2008/ags"
 		 xmlns:flextras="http://www.flextras.com/mxml"
-		 width="362" height="330" initialize="init();" >
+		 xmlns:skins="skins.*"
+		 width="362" height="330" initialize="init();">
 	<fx:Script>
 		<![CDATA[
 			import com.esri.ags.FeatureSet;
@@ -248,7 +249,8 @@
 										
 			//		query.spatialRelationship = spatialRel.selectedItem.data;
 					query.spatialRelationship = currentLookUpMethod;
-					query.outFields=[selectionLabel1, selectionLabel2, selectionLabel3]
+					//query.outFields=[selectionLabel1, selectionLabel2, selectionLabel3]
+					query.outFields=["*"]
 					query.geometry = geom;
 					query.returnGeometry = true;
 					queryTask.execute(query, new AsyncResponder(onResult, onFault));

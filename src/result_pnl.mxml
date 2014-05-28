@@ -11,13 +11,27 @@
 			import flash.sampler.NewObjectSample;
 			
 			import mx.collections.ArrayCollection;
+			import mx.containers.Form;
 			import mx.controls.Label;
 			import mx.events.FlexEvent;
+			
+			import spark.events.GridSelectionEvent;
 			
 
 			[Bindable]
  			public static var arr:ArrayCollection=new ArrayCollection();
 			
+			
+			protected function dg_selectionChangeHandler(event:GridSelectionEvent):void
+			{				
+				txtArea.text="";
+				var row:Object=dg.dataProvider.getItemAt(dg.selectedIndex);
+				for(var i:String in row)
+				{
+					txtArea.text=txtArea.text+i+":"+row[i]+"\n";
+				}
+				
+			}
 			
 		]]>
 	</fx:Script>
@@ -27,10 +41,8 @@
 	</fx:Declarations>
 	<mx:MenuBar id="mnBr2" x="25" y="-33" width="295" height="25" 
 				iconField="icon" labelField="label"/>
-	<s:DataGrid id="dg" x="0" top="-9" width="100%" height="324" alpha="0.5" dataProvider="{arr}"
-				verticalScrollPolicy="auto">
-		
-		
+		<s:DataGrid id="dg" x="0" top="-9" width="100%" height="258" alpha="0.5" dataProvider="{arr}"
+					selectionChange="dg_selectionChangeHandler(event)" verticalScrollPolicy="auto">		
 		<s:columns>
 			<s:ArrayList>
 				<s:GridColumn id="column1" dataField="{mapView.selectionLabel1}" headerText="@{mapView.selectionLabel1}"/>
@@ -39,6 +51,5 @@
 			</s:ArrayList>
 		</s:columns>
 	</s:DataGrid>
-	<s:TextArea x="0" y="316" width="320" height="163"/>
-	
+	<s:TextArea id="txtArea" x="0" y="247" width="320" height="224"/>	
 </s:Group>
