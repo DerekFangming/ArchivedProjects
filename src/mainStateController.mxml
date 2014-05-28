@@ -24,7 +24,6 @@
 				if (currentState == "MapPanel") 
 				{
 					this.currentState="ResultPanel";
-//					result_pnl.arr=mapView.dgArr;
 				}				
 				
 				if (currentState == "LoginPanel") this.currentState="MapPanel";
@@ -32,7 +31,7 @@
 			
 			protected function application1_creationCompleteHandler(event:FlexEvent):void
 			{
-				//
+				
 			}
 			
 			protected function login_pnl1_LoginOkHandler(event:Event):void
