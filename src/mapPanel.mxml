@@ -298,7 +298,7 @@
 				var fields:Array = event.featureSet.fields;
 				var attributes:Array = event.featureSet.attributes;				
 				 dgArr= new ArrayCollection(attributes);
-				 result_pnl.arr=dgArr;
+				 resultPanel.arr=dgArr;
 
 			}
 			
@@ -418,7 +418,7 @@
 			public static function updateSelection1(e:IndexChangeEvent):void
 			{
 				var selectedIndex:int = e.newIndex;
-				var selectedItem:String = mapView.searchValue.getItemAt(selectedIndex).data;
+				var selectedItem:String = mapPanel.searchValue.getItemAt(selectedIndex).data;
 				selectionLabel1 = selectedItem;
 				index1 = arrayOfSelection.indexOf(selectionLabel1);
 			}
@@ -426,7 +426,7 @@
 			public static function updateSelection2(e:IndexChangeEvent):void
 			{
 				var selectedIndex:int = e.newIndex;
-				var selectedItem:String = mapView.searchValue.getItemAt(selectedIndex).data;
+				var selectedItem:String = mapPanel.searchValue.getItemAt(selectedIndex).data;
 				selectionLabel2 = selectedItem;
 				index2 = arrayOfSelection.indexOf(selectionLabel2);
 			}
@@ -434,7 +434,7 @@
 			public static function updateSelection3(e:IndexChangeEvent):void
 			{
 				var selectedIndex:int = e.newIndex;
-				var selectedItem:String = mapView.searchValue.getItemAt(selectedIndex).data;
+				var selectedItem:String = mapPanel.searchValue.getItemAt(selectedIndex).data;
 				selectionLabel3 = selectedItem;
 				index3 = arrayOfSelection.indexOf(selectionLabel3);
 			}
@@ -494,14 +494,14 @@
 					<s:VGroup width="100%" horizontalAlign="center"
 							  paddingTop="20" gap="15">
 						<s:Label text="数据1"/>
-						<flextras:DropDownList id="selection1" x="16" width="200" height="30" requireSelection="true" selectedIndex="{mapView.index1}"
-										 dataProvider="{mapView.searchValue}" change="mapView.updateSelection1(event);"/>
+						<flextras:DropDownList id="selection1" x="16" width="200" height="30" requireSelection="true" selectedIndex="{mapPanel.index1}"
+										 dataProvider="{mapPanel.searchValue}" change="mapPanel.updateSelection1(event);"/>
 						<s:Label text="数据2"/>
-						<flextras:DropDownList id="selection2" x="16" width="200" height="30" requireSelection="true" selectedIndex="{mapView.index2}"
-											   dataProvider="{mapView.searchValue}" change="mapView.updateSelection2(event);"/>
+						<flextras:DropDownList id="selection2" x="16" width="200" height="30" requireSelection="true" selectedIndex="{mapPanel.index2}"
+											   dataProvider="{mapPanel.searchValue}" change="mapPanel.updateSelection2(event);"/>
 						<s:Label text="数据3"/>
-						<flextras:DropDownList id="selection3" x="16" width="200" height="30" requireSelection="true" selectedIndex="{mapView.index3}"
-											   dataProvider="{mapView.searchValue}" change="mapView.updateSelection3(event);"/>
+						<flextras:DropDownList id="selection3" x="16" width="200" height="30" requireSelection="true" selectedIndex="{mapPanel.index3}"
+											   dataProvider="{mapPanel.searchValue}" change="mapPanel.updateSelection3(event);"/>
 						<s:Button label="OK" click="close();"/>
 					</s:VGroup>
 				</s:Panel>

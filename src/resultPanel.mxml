@@ -45,9 +45,9 @@
 					selectionChange="dg_selectionChangeHandler(event)" verticalScrollPolicy="auto">		
 		<s:columns>
 			<s:ArrayList>
-				<s:GridColumn id="column1" dataField="{mapView.selectionLabel1}" headerText="@{mapView.selectionLabel1}"/>
-				<s:GridColumn id="column2" dataField="{mapView.selectionLabel2}" headerText="@{mapView.selectionLabel2}"/>				
-				<s:GridColumn id="column3" dataField="{mapView.selectionLabel3}" headerText="@{mapView.selectionLabel3}"/>
+				<s:GridColumn id="column1" dataField="{mapPanel.selectionLabel1}" headerText="@{mapPanel.selectionLabel1}"/>
+				<s:GridColumn id="column2" dataField="{mapPanel.selectionLabel2}" headerText="@{mapPanel.selectionLabel2}"/>				
+				<s:GridColumn id="column3" dataField="{mapPanel.selectionLabel3}" headerText="@{mapPanel.selectionLabel3}"/>
 			</s:ArrayList>
 		</s:columns>
 	</s:DataGrid>
