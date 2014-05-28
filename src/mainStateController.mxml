@@ -6,6 +6,7 @@
 	<s:layout>
 		<s:BasicLayout/>
 	</s:layout>
+	<fx:Style source="controller.css"/>
 	
 	<fx:Script>
 		<![CDATA[
