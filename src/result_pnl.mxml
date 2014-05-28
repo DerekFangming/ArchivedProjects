@@ -39,9 +39,10 @@
 		
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:DataGrid id="dg" x="0" top="13" width="100%" height="250" alpha="0.5" dataProvider="{arr}"
-				selectionChange="dg_selectionChangeHandler(event)" verticalScrollPolicy="auto">
-		
+	<mx:MenuBar id="mnBr2" x="25" y="-33" width="295" height="25" 
+				iconField="icon" labelField="label"/>
+		<s:DataGrid id="dg" x="0" top="-9" width="100%" height="258" alpha="0.5" dataProvider="{arr}"
+					selectionChange="dg_selectionChangeHandler(event)" verticalScrollPolicy="auto">		
 		<s:columns>
 			<s:ArrayList>
 				<s:GridColumn id="column1" dataField="{mapView.selectionLabel1}" headerText="@{mapView.selectionLabel1}"/>
@@ -50,6 +51,5 @@
 			</s:ArrayList>
 		</s:columns>
 	</s:DataGrid>
-	<s:TextArea id="txtArea" x="0" y="255" width="320" height="215"/>
-	
+	<s:TextArea id="txtArea" x="0" y="247" width="320" height="224"/>	
 </s:Group>
