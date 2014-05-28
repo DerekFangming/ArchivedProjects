@@ -53,8 +53,8 @@
 			  icon="assets/backward.png"
 			  click="backBtn_clickHandler(event)" 
 			  left.EntryPanel="0" bottom.EntryPanel="435" height.EntryPanel="45"						
-			  left.ResultPanel="0" bottom.ResultPanel="435" />
-	<s:Button skinClass="skins.myButtonSkin" id="fwdBtn" includeIn="EntryPanel" right="0" bottom="435" 
+			  left.ResultPanel="0" bottom.ResultPanel="455" />
+	<s:Button skinClass="skins.myButtonSkin" id="fwdBtn" includeIn="EntryPanel" right="0" bottom="455" 
 			  click="fwdBtn_clickHandler(event)" icon="assets/forward.png"/>
 	<ns1:login includeIn="LoginPanel" width="320" height="480" horizontalCenter="0"
 			   LoginOk="login_pnl1_LoginOkHandler(event)" verticalCenter="0"> 

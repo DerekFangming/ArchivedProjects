@@ -458,12 +458,12 @@
 			<!--<s:ComboBox id="spatialRel" x="16" width="308" height="25%"
 						dataProvider="{spatialRelationshipOptions_area}" requireSelection="true"/>-->
 			
-			<esri:Map id="map" x="0" y="10" width="326" height="435">
+			<esri:Map id="map" x="0" y="-10" width="326" height="435">
 				<esri:ArcGISDynamicMapServiceLayer url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer"/>
 				<esri:GraphicsLayer id="myGraphicsLayer"/>
 			</esri:Map>
 			
-	<mx:MenuBar id="mnBr" x="45" y="-35" width="230" height="45" dataProvider="{arrColl}"
+	<mx:MenuBar id="mnBr" x="25" y="-35" width="270" height="25" dataProvider="{arrColl}"
 				iconField="icon" itemClick="menu_changeHandler(event)" labelField="label"/>
 	<!--<mx:MenuBar  id="data" left="5" bottom="3" width="95" height="35"></mx:MenuBar>-->
 	

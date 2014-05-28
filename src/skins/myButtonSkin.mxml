@@ -14,17 +14,24 @@
 		<s:State name="up" />
 	</s:states>
 	<s:Group>
-		<s:Rect width="100%" height="100%" radiusX="4" radiusY="4">		
+		<s:Rect width="100%" height="100%" radiusX="1">		
 			<s:fill>
-				<s:SolidColor color.down="blue" alpha.down="0.7" 
-							  color.over="green" alpha.over="0.7"
-							  color.up="red" alpha="0.7"/>
+				<s:SolidColor color.up="0x0090FF" alpha.up="0.5"
+							  color.down="0x0090FF" alpha.down="0.7" />
 			</s:fill>
+			<s:stroke>
+				<s:LinearGradientStroke weight="1">
+					<s:GradientEntry color="0x000000"/>
+				</s:LinearGradientStroke>
+			</s:stroke>
 		</s:Rect>
-		<s:HGroup>			
+		<s:Group>
+			<s:layout>
+				<s:HorizontalLayout gap="0"/>
+			</s:layout>
 			<s:BitmapImage id="iconDisplay" width="100%" height="100%" />			
-			<!--<s:Label id="labelDisplay" />-->
-		</s:HGroup>
+			<s:Label id="labelDisplay" />
+		</s:Group>
 	</s:Group>
 
 	<!-- SkinParts
