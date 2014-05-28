@@ -5,6 +5,7 @@
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 xmlns:esri="http://www.esri.com/2008/ags"
 		 xmlns:flextras="http://www.flextras.com/mxml"
+		 xmlns:skins="skins.*"
 		 width="362" height="330" initialize="init();">
 	<fx:Script>
 		<![CDATA[
