@@ -269,12 +269,13 @@
 					}
 					function onFault(info:Object, token:Object = null):void
 					{
-						Alert.show(info.faultString + "\n\n" + info.faultDetail, "queryTask fault " + info.faultCode);
+						//Alert.show(info.faultString + "\n\n" + info.faultDetail, "queryTask fault " + info.faultCode);
 					}
 				}
 				catch (error:Error)
 				{
-					Alert.show(error.toString(), "myGeometryService_simplifyCompleteHandler error");
+				//	Alert.show(error.toString(), "myGeometryService_simplifyCompleteHandler error");
+					Alert.show("无法连接服务器");
 				}
 			}
 			
@@ -391,18 +392,33 @@
 				
 				arrColl = new ArrayCollection([menu, buttonBarObj]);
 			}
+			
+			[Bindable]
+			public static var arrayOfSelection:Array = ["OBJECTID", "LOWPARCELID", "PARCELID", "BUILDING", "UNIT", "CVTTXCD", "CVTTXDSCRP", "SCHLTXCD", "SCHLDSCRP",
+				"USECD", "USEDSCRP", "NGHBRHDCD", "CLASSCD", "CLASSDSCRP", "SITEADDRESS", "PRPRTYDSCRP", "CNVYNAME", "OWNERNME1", "OWNERNME2", "PSTLADDRESS", 
+				"PSTLCITY", "PSTLSTATE", "PSTLZIP5", "PSTLZIP4", "RESFLRAREA", "RESYRBLT", "RESSTRTYP", "STRCLASS", "CLASSMOD", "LNDVALUE", "PRVASSDVAL", 
+				"CNTASSDVAL", "ASSDVALYRCG", "ASSDPCNTCG", "PRVTXBLVAL", "CNTTXBLVAL", "TXBLVALYRCHG", "TXBLPCNTCHG", "PRVWNTTXOD", "PRVSMRTXOD", "TOTPRVTXTOD", 
+				"CNTWNTTXOD", "CNTSMRTXOD", "TOTCNTTXOD", "TXODYRCHG", "TXODPCNTCHG","LASTUPDATE"];
+			
 			[Bindable]
 			public static var selectionLabel1:String = "LNDVALUE";
 			[Bindable]
 			public static var selectionLabel2:String = "SCHLTXCD";
 			[Bindable]
 			public static var selectionLabel3:String = "CNTASSDVAL";
+			[Bindable]
+			public static var index1:int = 29;
+			[Bindable]
+			public static var index2:int = 7;
+			[Bindable]
+			public static var index3:int = 31;
 			
 			public static function updateSelection1(e:IndexChangeEvent):void
 			{
 				var selectedIndex:int = e.newIndex;
 				var selectedItem:String = mapView.searchValue.getItemAt(selectedIndex).data;
 				selectionLabel1 = selectedItem;
+				index1 = arrayOfSelection.indexOf(selectionLabel1);
 			}
 			
 			public static function updateSelection2(e:IndexChangeEvent):void
@@ -410,6 +426,7 @@
 				var selectedIndex:int = e.newIndex;
 				var selectedItem:String = mapView.searchValue.getItemAt(selectedIndex).data;
 				selectionLabel2 = selectedItem;
+				index2 = arrayOfSelection.indexOf(selectionLabel2);
 			}
 			
 			public static function updateSelection3(e:IndexChangeEvent):void
@@ -417,6 +434,7 @@
 				var selectedIndex:int = e.newIndex;
 				var selectedItem:String = mapView.searchValue.getItemAt(selectedIndex).data;
 				selectionLabel3 = selectedItem;
+				index3 = arrayOfSelection.indexOf(selectionLabel3);
 			}
 		]]>
 	</fx:Script>
@@ -458,7 +476,7 @@
 			<!--<s:ComboBox id="spatialRel" x="16" width="308" height="25%"
 						dataProvider="{spatialRelationshipOptions_area}" requireSelection="true"/>-->
 			
-			<esri:Map id="map" x="0" y="-10" width="326" height="435">
+			<esri:Map id="map" x="0" y="-10" width="326" height="450">
 				<esri:ArcGISDynamicMapServiceLayer url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer"/>
 				<esri:GraphicsLayer id="myGraphicsLayer"/>
 			</esri:Map>
@@ -474,13 +492,13 @@
 					<s:VGroup width="100%" horizontalAlign="center"
 							  paddingTop="20" gap="15">
 						<s:Label text="数据1"/>
-						<flextras:DropDownList id="selection1" x="16" width="200" height="30" requireSelection="true"
+						<flextras:DropDownList id="selection1" x="16" width="200" height="30" requireSelection="true" selectedIndex="{mapView.index1}"
 										 dataProvider="{mapView.searchValue}" change="mapView.updateSelection1(event);"/>
 						<s:Label text="数据2"/>
-						<flextras:DropDownList id="selection2" x="16" width="200" height="30" requireSelection="true"
+						<flextras:DropDownList id="selection2" x="16" width="200" height="30" requireSelection="true" selectedIndex="{mapView.index2}"
 											   dataProvider="{mapView.searchValue}" change="mapView.updateSelection2(event);"/>
 						<s:Label text="数据3"/>
-						<flextras:DropDownList id="selection3" x="16" width="200" height="30" requireSelection="true"
+						<flextras:DropDownList id="selection3" x="16" width="200" height="30" requireSelection="true" selectedIndex="{mapView.index3}"
 											   dataProvider="{mapView.searchValue}" change="mapView.updateSelection3(event);"/>
 						<s:Button label="OK" click="close();"/>
 					</s:VGroup>
