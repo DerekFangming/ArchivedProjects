@@ -19,14 +19,6 @@
  			public static var arr:ArrayCollection=new ArrayCollection();
 			
 			
-//			this.column1.dataTipField = mapView.selectionLabel1;
-//			this.column1.headerText = mapView.selectionLabel1;
-//			this.column2.dataTipField = mapView.selectionLabel2;
-//			this.column2.headerText = mapView.selectionLabel2;
-//			this.column3.dataTipField = mapView.selectionLabel3;
-//			this.column3.headerText = mapView.selectionLabel3;
-			
-			
 		]]>
 	</fx:Script>
 	<fx:Declarations>

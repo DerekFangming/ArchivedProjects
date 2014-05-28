@@ -56,53 +56,53 @@
 			[Bindable]
 			public static var searchValue:ArrayCollection = new ArrayCollection(
 				[
-					{ data: "OBJECTID", label: "1" },
-					{ data: "LOWPARCELID", label: "2" },
-					{ data: "PARCELID", label: "3" },
-					{ data: "BUILDING", label: "" },
-					{ data: "UNIT", label: "" },
-					{ data: "CVTTXCD", label: "" },
-					{ data: "CVTTXDSCRP", label: "" },
-					{ data: "SCHLTXCD", label: "" },
-					{ data: "SCHLDSCRP", label: "" },
-					{ data: "USECD", label: "" },
-					{ data: "USEDSCRP", label: "" },
-					{ data: "NGHBRHDCD", label: "" },
-					{ data: "CLASSCD", label: "" },
-					{ data: "CLASSDSCRP", label: "" },
-					{ data: "SITEADDRESS", label: "" },
-					{ data: "PRPRTYDSCRP", label: "" },
-					{ data: "CNVYNAME", label: "" },
-					{ data: "OWNERNME1", label: "" },
-					{ data: "OWNERNME2", label: "" },
-					{ data: "PSTLADDRESS", label: "" },
-					{ data: "PSTLCITY", label: "" },
-					{ data: "PSTLSTATE", label: "" },
-					{ data: "PSTLZIP5", label: "" },
-					{ data: "PSTLZIP4", label: "" },
-					{ data: "RESFLRAREA", label: "" },
-					{ data: "RESYRBLT", label: "" },
-					{ data: "RESSTRTYP", label: "" },
-					{ data: "STRCLASS", label: "" },
-					{ data: "CLASSMOD", label: "" },
-					{ data: "LNDVALUE", label: "" },
-					{ data: "PRVASSDVAL", label: "" },
-					{ data: "CNTASSDVAL", label: "" },
-					{ data: "ASSDVALYRCG", label: "" },
-					{ data: "ASSDPCNTCG", label: "" },
-					{ data: "PRVTXBLVAL", label: "" },
-					{ data: "CNTTXBLVAL", label: "" },
-					{ data: "TXBLVALYRCHG", label: "" },
-					{ data: "TXBLPCNTCHG", label: "" },
-					{ data: "PRVWNTTXOD", label: "" },
-					{ data: "PRVSMRTXOD", label: "" },
-					{ data: "TOTPRVTXTOD", label: "" },
-					{ data: "CNTWNTTXOD", label: "" },
-					{ data: "CNTSMRTXOD", label: "" },
-					{ data: "TOTCNTTXOD", label: "" },
-					{ data: "TXODYRCHG", label: "" },
-					{ data: "TXODPCNTCHG", label: "" },
-					{ data: "LASTUPDATE", label: "" }
+					{ data: "OBJECTID", label: "OBJECTID" },
+					{ data: "LOWPARCELID", label: "LOWPARCELID" },
+					{ data: "PARCELID", label: "PARCELID" },
+					{ data: "BUILDING", label: "BUILDING" },
+					{ data: "UNIT", label: "UNIT" },
+					{ data: "CVTTXCD", label: "CVTTXCD" },
+					{ data: "CVTTXDSCRP", label: "CVTTXDSCRP" },
+					{ data: "SCHLTXCD", label: "SCHLTXCD" },
+					{ data: "SCHLDSCRP", label: "SCHLDSCRP" },
+					{ data: "USECD", label: "USECD" },
+					{ data: "USEDSCRP", label: "USEDSCRP" },
+					{ data: "NGHBRHDCD", label: "NGHBRHDCD" },
+					{ data: "CLASSCD", label: "CLASSCD" },
+					{ data: "CLASSDSCRP", label: "CLASSDSCRP" },
+					{ data: "SITEADDRESS", label: "SITEADDRESS" },
+					{ data: "PRPRTYDSCRP", label: "PRPRTYDSCRP" },
+					{ data: "CNVYNAME", label: "CNVYNAME" },
+					{ data: "OWNERNME1", label: "OWNERNME1" },
+					{ data: "OWNERNME2", label: "OWNERNME2" },
+					{ data: "PSTLADDRESS", label: "PSTLADDRESS" },
+					{ data: "PSTLCITY", label: "PSTLCITY" },
+					{ data: "PSTLSTATE", label: "PSTLSTATE" },
+					{ data: "PSTLZIP5", label: "PSTLZIP5" },
+					{ data: "PSTLZIP4", label: "PSTLZIP4" },
+					{ data: "RESFLRAREA", label: "RESFLRAREA" },
+					{ data: "RESYRBLT", label: "RESYRBLT" },
+					{ data: "RESSTRTYP", label: "RESSTRTYP" },
+					{ data: "STRCLASS", label: "STRCLASS" },
+					{ data: "CLASSMOD", label: "CLASSMOD" },
+					{ data: "LNDVALUE", label: "LNDVALUE" },
+					{ data: "PRVASSDVAL", label: "PRVASSDVAL" },
+					{ data: "CNTASSDVAL", label: "CNTASSDVAL" },
+					{ data: "ASSDVALYRCG", label: "ASSDVALYRCG" },
+					{ data: "ASSDPCNTCG", label: "ASSDPCNTCG" },
+					{ data: "PRVTXBLVAL", label: "PRVTXBLVAL" },
+					{ data: "CNTTXBLVAL", label: "CNTTXBLVAL" },
+					{ data: "TXBLVALYRCHG", label: "TXBLVALYRCHG" },
+					{ data: "TXBLPCNTCHG", label: "TXBLPCNTCHG" },
+					{ data: "PRVWNTTXOD", label: "PRVWNTTXOD" },
+					{ data: "PRVSMRTXOD", label: "PRVSMRTXOD" },
+					{ data: "TOTPRVTXTOD", label: "TOTPRVTXTOD" },
+					{ data: "CNTWNTTXOD", label: "CNTWNTTXOD" },
+					{ data: "CNTSMRTXOD", label: "CNTSMRTXOD" },
+					{ data: "TOTCNTTXOD", label: "TOTCNTTXOD" },
+					{ data: "TXODYRCHG", label: "TXODYRCHG" },
+					{ data: "TXODPCNTCHG", label: "TXODPCNTCHG" },
+					{ data: "LASTUPDATE", label: "LASTUPDATE" }
 				]);
 
 			
@@ -123,49 +123,42 @@
 						case "多段线":
 						{
 							myDrawTool.activate(DrawTool.POLYLINE);
-						//	spatialRel.dataProvider = spatialRelationshipOptions_linear;
 							pushLineData();
 							break;
 						}
 						case "自由画线":
 						{
 							myDrawTool.activate(DrawTool.FREEHAND_POLYLINE);
-						//	spatialRel.dataProvider = spatialRelationshipOptions_linear;
 							pushLineData();
 							break;
 						}
 						case "多边形":
 						{
 							myDrawTool.activate(DrawTool.POLYGON);
-						//	spatialRel.dataProvider = spatialRelationshipOptions_area;
 							pushPolyData();
 							break;
 						}
 						case "自由多边形":
 						{
 							myDrawTool.activate(DrawTool.FREEHAND_POLYGON);
-						//	spatialRel.dataProvider = spatialRelationshipOptions_area;
 							pushPolyData();
 							break;
 						}
 						case "长方形":
 						{
 							myDrawTool.activate(DrawTool.EXTENT);
-						//	spatialRel.dataProvider = spatialRelationshipOptions_area;
 							pushPolyData();
 							break;
 						}
 						case "圆":
 						{
 							myDrawTool.activate(DrawTool.CIRCLE);
-						//	spatialRel.dataProvider = spatialRelationshipOptions_area;
 							pushPolyData();
 							break;
 						}
 						case "椭圆":
 						{
 							myDrawTool.activate(DrawTool.ELLIPSE);
-						//	spatialRel.dataProvider = spatialRelationshipOptions_area;
 							pushPolyData();
 							break;
 						}
@@ -331,6 +324,12 @@
 			[Embed("assets/i_draw_ellipse.png")]
 			public const Ellipse:Class;
 			
+			[Embed("assets/search.png")]
+			public const Search:Class;
+			
+			[Embed("assets/select.png")]
+			public const Select:Class;
+			
 			[Bindable]
 			public static var arrColl:ArrayCollection;
 			public var lookUpMethod:Array = [];
@@ -379,29 +378,18 @@
 				var borderContainerMethods:Array = [];
 				borderContainerMethods.push({label:"清除"});
 				
-				var menu:Object = {label:"菜单",
-					children:[{label:"选定区域:", children:selectTool},
+				var menu:Object = {label:"选定区域", icon:Select ,
+					children:[{label:"选择工具:", children:selectTool},
 						{label:"选定方法:", children:lookUpMethod},
 						{label:"重新画图:", children:borderContainerMethods}]};
 				
 				/* Button */
-				var buttonProperties:Array = [];
-				var buttonMethods:Array = [];
-				var buttonStyles:Array = [];
 				var buttonEvents:Array = [];
 				buttonEvents.push({label:"查询数据设置"});
 				
-				var buttonObj:Object = {label:"Button", 
-					children:[{label:"Properties:", children:buttonProperties},
-						{label:"Methods:", children:buttonMethods},
-						{label:"Styles:", children:buttonStyles},
-						{label:"Events:", children:buttonEvents}]};
+				var buttonBarObj:Object = {label:"查询数据", icon:Search, children: buttonEvents};
 				
-				
-				
-				var buttonBarObj:Object = {label:"查询数据", children: buttonEvents};
-				
-				arrColl = new ArrayCollection([menu, buttonObj, buttonBarObj]);
+				arrColl = new ArrayCollection([menu, buttonBarObj]);
 			}
 			[Bindable]
 			public static var selectionLabel1:String = "LNDVALUE";
