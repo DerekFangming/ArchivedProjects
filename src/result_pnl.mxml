@@ -11,13 +11,27 @@
 			import flash.sampler.NewObjectSample;
 			
 			import mx.collections.ArrayCollection;
+			import mx.containers.Form;
 			import mx.controls.Label;
 			import mx.events.FlexEvent;
+			
+			import spark.events.GridSelectionEvent;
 			
 
 			[Bindable]
  			public static var arr:ArrayCollection=new ArrayCollection();
 			
+			
+			protected function dg_selectionChangeHandler(event:GridSelectionEvent):void
+			{				
+				txtArea.text="";
+				var row:Object=dg.dataProvider.getItemAt(dg.selectedIndex);
+				for(var i:String in row)
+				{
+					txtArea.text=txtArea.text+i+":"+row[i]+"\n";
+				}
+				
+			}
 			
 		]]>
 	</fx:Script>
@@ -26,7 +40,7 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<s:DataGrid id="dg" x="0" top="13" width="100%" height="250" alpha="0.5" dataProvider="{arr}"
-				verticalScrollPolicy="auto">
+				selectionChange="dg_selectionChangeHandler(event)" verticalScrollPolicy="auto">
 		
 		<s:columns>
 			<s:ArrayList>
@@ -36,6 +50,6 @@
 			</s:ArrayList>
 		</s:columns>
 	</s:DataGrid>
-	<s:TextArea x="0" y="255" width="320" height="215"/>
+	<s:TextArea id="txtArea" x="0" y="255" width="320" height="215"/>
 	
 </s:Group>

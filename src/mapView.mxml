@@ -248,7 +248,8 @@
 										
 			//		query.spatialRelationship = spatialRel.selectedItem.data;
 					query.spatialRelationship = currentLookUpMethod;
-					query.outFields=[selectionLabel1, selectionLabel2, selectionLabel3]
+					//query.outFields=[selectionLabel1, selectionLabel2, selectionLabel3]
+					query.outFields=["*"]
 					query.geometry = geom;
 					query.returnGeometry = true;
 					queryTask.execute(query, new AsyncResponder(onResult, onFault));
@@ -458,7 +459,7 @@
 			<!--<s:ComboBox id="spatialRel" x="16" width="308" height="25%"
 						dataProvider="{spatialRelationshipOptions_area}" requireSelection="true"/>-->
 			
-			<esri:Map id="map" x="0" y="-10" width="326" height="435">
+			<esri:Map id="map" x="0" y="-10" width="326" height="450">
 				<esri:ArcGISDynamicMapServiceLayer url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer"/>
 				<esri:GraphicsLayer id="myGraphicsLayer"/>
 			</esri:Map>
