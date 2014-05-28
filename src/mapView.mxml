@@ -5,7 +5,7 @@
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 xmlns:esri="http://www.esri.com/2008/ags"
 		 xmlns:flextras="http://www.flextras.com/mxml"
-		 width="362" height="330" initialize="init();">
+		 width="362" height="330" initialize="init();" >
 	<fx:Script>
 		<![CDATA[
 			import com.esri.ags.FeatureSet;
@@ -379,7 +379,7 @@
 				var borderContainerMethods:Array = [];
 				borderContainerMethods.push({label:"清除"});
 				
-				var menu:Object = {label:"选定区域", icon:Select ,
+				var menu:Object = {label:"选定区域   ", icon:Select ,
 					children:[{label:"选择工具:", children:selectTool},
 						{label:"选定方法:", children:lookUpMethod},
 						{label:"重新画图:", children:borderContainerMethods}]};

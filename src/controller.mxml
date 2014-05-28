@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
-			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" fontFamily="华文仿宋"
 			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="320" minHeight="480" pageTitle="browser_style" xmlns:ns1="*"
 			   creationComplete="application1_creationCompleteHandler(event)"  viewSourceURL="srcview/index.html" xmlns:skins="skins.*">
 	<s:layout>
@@ -13,20 +13,20 @@
 						 			
 			protected function backBtn_clickHandler(event:MouseEvent):void
 			{
-				if (currentState == "EntryPanel")this.currentState="LoginPanel";		
-				if (currentState == "ResultPanel") this.currentState="EntryPanel";
+				if (currentState == "MapPanel")this.currentState="LoginPanel";		
+				if (currentState == "ResultPanel") this.currentState="MapPanel";
 			}
 			
 			
 			protected function fwdBtn_clickHandler(event:MouseEvent):void
 			{
-				if (currentState == "EntryPanel") 
+				if (currentState == "MapPanel") 
 				{
 					this.currentState="ResultPanel";
 //					result_pnl.arr=mapView.dgArr;
 				}				
 				
-				if (currentState == "LoginPanel") this.currentState="EntryPanel";
+				if (currentState == "LoginPanel") this.currentState="MapPanel";
 			}
 			
 			protected function application1_creationCompleteHandler(event:FlexEvent):void
@@ -36,30 +36,30 @@
 			
 			protected function login_pnl1_LoginOkHandler(event:Event):void
 			{
-				currentState = "EntryPanel";
+				currentState = "MapPanel";
 			}					
 		]]>
 	</fx:Script>
 	<s:states>
 		<s:State name="LoginPanel"/>
-		<s:State name="EntryPanel"/>
+		<s:State name="MapPanel"/>
 		<s:State name="ResultPanel"/>
 	</s:states>
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Button skinClass="skins.myButtonSkin" id="backBtn" includeIn="EntryPanel,ResultPanel" left="10" bottom="2"
+	<s:Button skinClass="skins.myButtonSkin" id="backBtn" includeIn="MapPanel,ResultPanel" left="10" bottom="2"
 			  icon="assets/backward.png"
 			  click="backBtn_clickHandler(event)" 
-			  left.EntryPanel="0" bottom.EntryPanel="435" height.EntryPanel="45"						
+			  left.MapPanel="0" bottom.MapPanel="435" height.MapPanel="45"						
 			  left.ResultPanel="0" bottom.ResultPanel="455" />
-	<s:Button skinClass="skins.myButtonSkin" id="fwdBtn" includeIn="EntryPanel" right="0" bottom="455" 
+	<s:Button skinClass="skins.myButtonSkin" id="fwdBtn" includeIn="MapPanel" right="0" bottom="455" 
 			  click="fwdBtn_clickHandler(event)" icon="assets/forward.png"/>
 	<ns1:login includeIn="LoginPanel" width="320" height="480" horizontalCenter="0"
 			   LoginOk="login_pnl1_LoginOkHandler(event)" verticalCenter="0"> 
 	</ns1:login>
-	<ns1:mapView includeIn="EntryPanel" width="320" height="460" horizontalCenter="0"
+	<ns1:mapView includeIn="MapPanel" width="320" height="460" horizontalCenter="0"
 				 verticalCenter="25">
 	</ns1:mapView>
 	<ns1:result_pnl includeIn="ResultPanel" width="320" height="460" horizontalCenter="0" verticalCenter="23">
