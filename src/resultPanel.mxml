@@ -41,18 +41,20 @@
 		
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<mx:MenuBar id="mnBr2" top="0" width="70%" height="5%" horizontalCenter="0" iconField="icon"
+	<mx:MenuBar id="mnBr2" top="0" width="80%" height="5%" horizontalCenter="0" iconField="icon"
 				labelField="label"/>
-		<s:DataGrid id="dg" width="100%" height="50%" alpha="0.5" dataProvider="{arr}"
-					horizontalCenter="0" selectionChange="dg_selectionChangeHandler(event)"
-					verticalCenter="-93" verticalScrollPolicy="auto">		
-		<s:columns>
-			<s:ArrayList>
-				<s:GridColumn id="column1" dataField="{mapPanel.selectionLabel1}" headerText="@{mapPanel.selectionLabel1}"/>
-				<s:GridColumn id="column2" dataField="{mapPanel.selectionLabel2}" headerText="@{mapPanel.selectionLabel2}"/>				
-				<s:GridColumn id="column3" dataField="{mapPanel.selectionLabel3}" headerText="@{mapPanel.selectionLabel3}"/>
-			</s:ArrayList>
-		</s:columns>
-	</s:DataGrid> 
-	<s:TextArea id="txtArea" width="100%" height="45%" horizontalCenter="0" verticalCenter="138" editable="false"/>	
+	<s:Group bottom="0" width="100%" height="95%">
+		<s:DataGrid id="dg" x="0" top="0" width="100%" height="55%" alpha="0.5" dataProvider="{arr}"
+					selectionChange="dg_selectionChangeHandler(event)" verticalScrollPolicy="auto">		
+			<s:columns>
+				<s:ArrayList>
+					<s:GridColumn id="column1" dataField="{mapPanel.selectionLabel1}" headerText="@{mapPanel.selectionLabel1}"/>
+					<s:GridColumn id="column2" dataField="{mapPanel.selectionLabel2}" headerText="@{mapPanel.selectionLabel2}"/>				
+					<s:GridColumn id="column3" dataField="{mapPanel.selectionLabel3}" headerText="@{mapPanel.selectionLabel3}"/>
+				</s:ArrayList>
+			</s:columns>
+		</s:DataGrid> 
+		<s:TextArea id="txtArea" x="0" bottom="0" width="100%" height="45%" editable="false"/>	
+	</s:Group>
+	
 </s:Group>

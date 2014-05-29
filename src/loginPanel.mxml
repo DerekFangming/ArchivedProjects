@@ -88,16 +88,17 @@
 	</fx:Declarations>
 	<s:Group width="100%" height="100%">
 		<s:BitmapImage x="0" y="0" width="100%" height="100%" source="@Embed('assets/indexBG.png')"/>
-		<s:Button id="Login" width="157" height="35" label="登陆" click="Login_clickHandler(event)"
-				  fontSize="20" horizontalCenter="0" skinClass="skins.loginButtonSkin"
-				  verticalCenter="120"/>
-	<s:Label horizontalCenter="-206" text="用户名" verticalCenter="-70"/>
-	<s:Label horizontalCenter="-214" text="密码" verticalCenter="7"/>
-	<s:TextInput id="Username" width="300" horizontalCenter="0" verticalCenter="-70"/>
-	<s:TextInput id="Password" width="300" displayAsPassword="true" horizontalCenter="0"
-				 verticalCenter="7"/>
-	<s:Label id="ErrorMsg" width="96" height="20" color="red" horizontalCenter="0" text=""
-			 verticalCenter="-140"/>
+		<s:VGroup horizontalCenter="0" verticalCenter="0" height="45%" width="80%">
+			<s:Label id="ErrorMsg" width="96" height="20" color="red"  text=""  horizontalCenter="0"/>
+			<s:Label  text="用户名"/>			
+			<s:TextInput id="Username" width="100%" />
+			<s:Label  text="密码" />
+			<s:TextInput id="Password" width="100%" displayAsPassword="true" 
+						 />			
+			<s:Button id="Login"  label="登陆" click="Login_clickHandler(event)"  
+					  fontSize="20"  skinClass="skins.loginButtonSkin" />
+		</s:VGroup>
+		
 	</s:Group>
 	
 	

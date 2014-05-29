@@ -62,11 +62,11 @@
 	</ns1:mapPanel>
 	<ns1:resultPanel includeIn="ResultPanel"  horizontalCenter="0" verticalCenter="0">
 	</ns1:resultPanel>
-	<s:Button skinClass="skins.myButtonSkin" id="backBtn" includeIn="MapPanel,ResultPanel" left="10" bottom="2"
-			  icon="assets/backward.png"
-			  click="backBtn_clickHandler(event)" 
-			  left.MapPanel="0" bottom.MapPanel="435" height.MapPanel="45"						
-			  left.ResultPanel="0" bottom.ResultPanel="455" />
-	<s:Button skinClass="skins.myButtonSkin" id="fwdBtn" includeIn="MapPanel" right="0" bottom="455" 
-			  click="fwdBtn_clickHandler(event)" icon="assets/forward.png"/>
+	<s:Button id="backBtn" includeIn="MapPanel,ResultPanel" click="backBtn_clickHandler(event)"
+			  icon="assets/backward.png" skinClass="skins.myButtonSkin"
+			  y.MapPanel="0" left.MapPanel="0" width.MapPanel="42" height.MapPanel="5%"
+			  left.ResultPanel="0" top.ResultPanel="0"/>
+	<s:Button id="fwdBtn" includeIn="MapPanel" y="0" right="0" height="5%"
+			  click="fwdBtn_clickHandler(event)" icon="assets/forward.png"
+			  skinClass="skins.myButtonSkin"/>
 </s:Application>
