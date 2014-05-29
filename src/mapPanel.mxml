@@ -342,6 +342,11 @@
 					lookUpMethod.pop();
 					lookUpMethod.pop();
 					lookUpMethod.pop();
+				}else
+				if(lookUpMethod.length == 3){
+					lookUpMethod.pop();
+					lookUpMethod.pop();
+					lookUpMethod.pop();
 				}
 				lookUpMethod.push({ data: Query.SPATIAL_REL_CROSSES, label: "贯穿画线"});
 				lookUpMethod.push({ data: Query.SPATIAL_REL_INTERSECTS, label: "与画线相交" });
@@ -350,6 +355,12 @@
 			}
 			
 			protected function pushPolyData():void {
+				if(lookUpMethod.length == 4){
+					lookUpMethod.pop();
+					lookUpMethod.pop();
+					lookUpMethod.pop();
+					lookUpMethod.pop();
+				}else
 				if(lookUpMethod.length == 3){
 					lookUpMethod.pop();
 					lookUpMethod.pop();
@@ -452,14 +463,12 @@
 		<s:NumberFormatter id="numberFormatter" trailingZeros="false"/>
 	</fx:Declarations>
 	
-	<esri:Map id="map" x="0" y="-10" width="326" height="455">
+	<mx:MenuBar id="mnBr" width="80%" height="5%" dataProvider="{arrColl}" horizontalCenter="0"
+				iconField="icon" itemClick="menu_changeHandler(event)" labelField="label"/>
+	<esri:Map id="map" bottom="0" width="100%" height="94%" horizontalCenter="0">
 				<esri:ArcGISDynamicMapServiceLayer url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer"/>
 				<esri:GraphicsLayer id="myGraphicsLayer"/>
 			</esri:Map>
-			
-	<mx:MenuBar id="mnBr" x="0" y="-35" width="270" height="25" dataProvider="{arrColl}"
-				iconField="icon" itemClick="menu_changeHandler(event)" labelField="label" />
-	
 	<fx:Declarations>
 		<fx:Component className="SettingPopup">
 			<s:SkinnablePopUpContainer x="10" y="50">

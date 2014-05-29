@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 		 xmlns:s="library://ns.adobe.com/flex/spark"
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 xmlns:ns1="*"
+		 minWidth="320" minHeight="480"
+		 width="100%" height="100%"
 		 >
 	<fx:Script>
 		<![CDATA[
@@ -39,10 +41,11 @@
 		
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<mx:MenuBar id="mnBr2" x="25" y="-33" width="70%" height="5%" 
-				iconField="icon" labelField="label"/>
-		<s:DataGrid id="dg" x="0" top="-9" width="100%" height="40%" alpha="0.5" dataProvider="{arr}"
-					selectionChange="dg_selectionChangeHandler(event)" verticalScrollPolicy="auto">		
+	<mx:MenuBar id="mnBr2" top="0" width="70%" height="5%" horizontalCenter="0" iconField="icon"
+				labelField="label"/>
+		<s:DataGrid id="dg" width="100%" height="50%" alpha="0.5" dataProvider="{arr}"
+					horizontalCenter="0" selectionChange="dg_selectionChangeHandler(event)"
+					verticalCenter="-93" verticalScrollPolicy="auto">		
 		<s:columns>
 			<s:ArrayList>
 				<s:GridColumn id="column1" dataField="{mapPanel.selectionLabel1}" headerText="@{mapPanel.selectionLabel1}"/>
@@ -50,6 +53,6 @@
 				<s:GridColumn id="column3" dataField="{mapPanel.selectionLabel3}" headerText="@{mapPanel.selectionLabel3}"/>
 			</s:ArrayList>
 		</s:columns>
-	</s:DataGrid>
-	<s:TextArea id="txtArea" x="0" y="247" width="100%" height="45%"/>	
-</s:VGroup>
+	</s:DataGrid> 
+	<s:TextArea id="txtArea" width="100%" height="45%" horizontalCenter="0" verticalCenter="138" editable="false"/>	
+</s:Group>
