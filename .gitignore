@@ -5,10 +5,10 @@ bin-debug/controller.swf
 
 .actionScriptProperties
 
-*.swf
+.flexProperties
 
 *.swf
 
 bin-debug/controller.swf
-.model/phoneApp.fml
+
 .model/phoneApp.fml
