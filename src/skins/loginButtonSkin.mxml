@@ -15,15 +15,15 @@
 		<s:State name="up" />
 	</s:states>
 	<s:Group>
-		<s:Rect width="154" height="35" radiusX="2" >	
+       <s:Rect width="154" height="35" radiusX="2" >
 			<s:stroke>
-				<s:SolidColorStroke color.up="0x000000" color.down="0xD4D4D4"/> 
+				<s:SolidColorStroke color.up="0x000000" alpha.down="0.6"/> 
 			</s:stroke>
 			<s:fill> 
 				<s:LinearGradient rotation="90"> 
 					<s:entries> 
-						<s:GradientEntry color="0xFFFFFF" color.down="0xD4D4D4"/> 
-						<s:GradientEntry color="0xD9D9D9" color.down="0xD4D4D4"/> 
+						<s:GradientEntry color="0xFFFFFF" color.down="0xE1E9F1" /> 
+						<s:GradientEntry color="0xD9D9D9" color.down="0xB4D8DD" /> 
 					</s:entries> 
 				</s:LinearGradient>
 			</s:fill>
