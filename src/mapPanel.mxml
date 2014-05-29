@@ -457,7 +457,7 @@
 				<esri:GraphicsLayer id="myGraphicsLayer"/>
 			</esri:Map>
 			
-	<mx:MenuBar id="mnBr" x="25" y="-35" width="270" height="25" dataProvider="{arrColl}"
+	<mx:MenuBar id="mnBr" x="0" y="-35" width="270" height="25" dataProvider="{arrColl}"
 				iconField="icon" itemClick="menu_changeHandler(event)" labelField="label" />
 	
 	<fx:Declarations>

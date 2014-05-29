@@ -86,16 +86,18 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Group>
-		<s:BitmapImage source="@Embed('assets/indexBG.png')" left="0" top="0" right="0" bottom="0"/>
-		<s:Button id="Login" x="81" y="300" width="157" height="35" label="登陆" fontSize="20"
-				  skinClass="skins.loginButtonSkin"
-			  click="Login_clickHandler(event)"/>
-	<s:Label x="10" y="147" text="用户名"/>
-	<s:Label x="10" y="226" text="密码"/>
-	<s:TextInput id="Username" x="10" y="171" width="300"/>
-	<s:TextInput id="Password" x="10" y="254" width="300" displayAsPassword="true"/>
-	<s:Label id="ErrorMsg" x="115" y="107" width="96" height="20" text="" color="red"/>
+	<s:Group width="100%" height="100%">
+		<s:BitmapImage x="0" y="0" width="100%" height="100%" source="@Embed('assets/indexBG.png')"/>
+		<s:Button id="Login" width="157" height="35" label="登陆" click="Login_clickHandler(event)"
+				  fontSize="20" horizontalCenter="0" skinClass="skins.loginButtonSkin"
+				  verticalCenter="120"/>
+	<s:Label horizontalCenter="-206" text="用户名" verticalCenter="-70"/>
+	<s:Label horizontalCenter="-214" text="密码" verticalCenter="7"/>
+	<s:TextInput id="Username" width="300" horizontalCenter="0" verticalCenter="-70"/>
+	<s:TextInput id="Password" width="300" displayAsPassword="true" horizontalCenter="0"
+				 verticalCenter="7"/>
+	<s:Label id="ErrorMsg" width="96" height="20" color="red" horizontalCenter="0" text=""
+			 verticalCenter="-140"/>
 	</s:Group>
 	
 	
