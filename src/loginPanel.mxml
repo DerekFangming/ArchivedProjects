@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="320" height="460"
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%"
 		 xmlns:components="com.adobe.airbench.components.*"
 		 title="地图查询系统" skinClass="skins.myPanelSkin">
 	
@@ -88,7 +88,8 @@
 	</fx:Declarations>
 	<s:Group>
 		<s:BitmapImage source="@Embed('assets/indexBG.png')" left="0" top="0" right="0" bottom="0"/>
-		<s:Button id="Login" x="81" y="300" width="157" height="35" label="登陆" skinClass="skins.loginButtonSkin"
+		<s:Button id="Login" x="81" y="300" width="157" height="35" label="登陆" fontSize="20"
+				  skinClass="skins.loginButtonSkin"
 			  click="Login_clickHandler(event)"/>
 	<s:Label x="10" y="147" text="用户名"/>
 	<s:Label x="10" y="226" text="密码"/>

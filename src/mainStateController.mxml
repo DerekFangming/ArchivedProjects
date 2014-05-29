@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
-			   xmlns:s="library://ns.adobe.com/flex/spark" fontFamily="华文仿宋"
-			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="320" minHeight="480" pageTitle="browser_style" xmlns:ns1="*"
-			   creationComplete="application1_creationCompleteHandler(event)"  viewSourceURL="srcview/index.html" xmlns:skins="skins.*">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:ns1="*"
+			   xmlns:skins="skins.*"
+			   minWidth="320" minHeight="420"
+			   creationComplete="application1_creationCompleteHandler(event)" fontFamily="华文仿宋"
+			   pageTitle="browser_style">
 	<s:layout>
 		<s:BasicLayout/>
 	</s:layout>
@@ -49,6 +53,15 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
+	
+	<ns1:loginPanel includeIn="LoginPanel" width="100%" height="100%" horizontalCenter="0"
+			   LoginOk="login_pnl1_LoginOkHandler(event)" verticalCenter="0"> 
+	</ns1:loginPanel>
+	<ns1:mapPanel includeIn="MapPanel" width="100%" height="100%" horizontalCenter="0"
+				 verticalCenter="0">
+	</ns1:mapPanel>
+	<ns1:resultPanel includeIn="ResultPanel" width="100%" height="100%" horizontalCenter="0" verticalCenter="0">
+	</ns1:resultPanel>
 	<s:Button skinClass="skins.myButtonSkin" id="backBtn" includeIn="MapPanel,ResultPanel" left="10" bottom="2"
 			  icon="assets/backward.png"
 			  click="backBtn_clickHandler(event)" 
@@ -56,12 +69,4 @@
 			  left.ResultPanel="0" bottom.ResultPanel="455" />
 	<s:Button skinClass="skins.myButtonSkin" id="fwdBtn" includeIn="MapPanel" right="0" bottom="455" 
 			  click="fwdBtn_clickHandler(event)" icon="assets/forward.png"/>
-	<ns1:loginPanel includeIn="LoginPanel" width="320" height="480" horizontalCenter="0"
-			   LoginOk="login_pnl1_LoginOkHandler(event)" verticalCenter="0"> 
-	</ns1:loginPanel>
-	<ns1:mapPanel includeIn="MapPanel" width="320" height="460" horizontalCenter="0"
-				 verticalCenter="25">
-	</ns1:mapPanel>
-	<ns1:resultPanel includeIn="ResultPanel" width="320" height="460" horizontalCenter="0" verticalCenter="23">
-	</ns1:resultPanel>
 </s:Application>
