@@ -390,7 +390,7 @@
 				var borderContainerMethods:Array = [];
 				borderContainerMethods.push({label:"清除"});
 				
-				var menu:Object = {label:"选定区域   ", icon:Select ,
+				var menu:Object = {label:"选定区域         ", icon:Select ,
 					children:[{label:"选择工具:", children:selectTool},
 						{label:"选定方法:", children:lookUpMethod},
 						{label:"重新画图:", children:borderContainerMethods}]};
@@ -465,18 +465,18 @@
 	
 	<mx:MenuBar id="mnBr" width="80%" height="5%" dataProvider="{arrColl}" horizontalCenter="0"
 				iconField="icon" itemClick="menu_changeHandler(event)" labelField="label"/>
-	<esri:Map id="map" bottom="0" width="100%" height="94%" horizontalCenter="0">
+	<esri:Map id="map" bottom="0" width="100%" height="96%" horizontalCenter="0">
 				<esri:ArcGISDynamicMapServiceLayer url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer"/>
 				<esri:GraphicsLayer id="myGraphicsLayer"/>
 			</esri:Map>
 	<fx:Declarations>
 		<fx:Component className="SettingPopup">
-			<s:SkinnablePopUpContainer width="100%" height="100%" >
-				<s:Panel title="查询数据设置"  width="300" height="400" id="selectionPanel" verticalCenter="0" horizontalCenter="0">
-					<s:VGroup width="100%" horizontalAlign="center"
+			<s:SkinnablePopUpContainer x="70" y="250">
+				<s:Panel title="查询数据设置"  width="500" height="460" id="selectionPanel" verticalCenter="0" horizontalCenter="0">
+					<s:VGroup width="100%" height="100%" horizontalAlign="center"
 							  paddingTop="20" gap="15">
 						<s:Label text="数据1"/>
-						<flextras:DropDownList id="selection1"  width="80%" height="30" requireSelection="true" selectedIndex="{mapPanel.index1}"
+						<flextras:DropDownList id="selection1" width="80%" height="30" requireSelection="true" selectedIndex="{mapPanel.index1}"
 										 dataProvider="{mapPanel.searchValue}" change="mapPanel.updateSelection1(event);"/>
 						<s:Label text="数据2"/>
 						<flextras:DropDownList id="selection2"  width="80%" height="30" requireSelection="true" selectedIndex="{mapPanel.index2}"
@@ -484,7 +484,7 @@
 						<s:Label text="数据3"/>
 						<flextras:DropDownList id="selection3"  width="80%" height="30" requireSelection="true" selectedIndex="{mapPanel.index3}"
 											   dataProvider="{mapPanel.searchValue}" change="mapPanel.updateSelection3(event);"/>
-						<s:Button label="OK" click="close();"/>
+						<s:Button label="确定" height="50" width="200" click="close();" />
 					</s:VGroup>
 				</s:Panel>
 			</s:SkinnablePopUpContainer>

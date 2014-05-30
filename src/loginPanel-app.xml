@@ -152,7 +152,7 @@
 		<!-- <fileType> -->
 
 			<!-- The name that the system displays for the registered file type. Required. -->
-			<!-- <name></name> -->
+			<name>土地查询</name>
 
 			<!-- The extension to register. Required. -->
 			<!-- <extension></extension> -->
@@ -164,12 +164,12 @@
 			<!-- <contentType></contentType> -->
 			
 			<!-- The icon to display for the file type. Optional. -->
-			<!-- <icon>
-				<image16x16></image16x16>
-				<image32x32></image32x32>
-				<image48x48></image48x48>
-				<image128x128></image128x128>
-			</icon> -->
+			<!--  <icon>
+				<image16x16>app_16.png</image16x16>
+				<image32x32>app_32.png</image32x32>
+				<image48x48>app_48.png</image48x48>
+				<image128x128>app_128.png</image128x128>
+			</icon>-->
 			
 		<!-- </fileType> -->
 	<!-- </fileTypes> -->

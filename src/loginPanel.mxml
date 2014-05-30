@@ -98,7 +98,7 @@
 			<s:TextInput id="Password" width="100%" displayAsPassword="true" 
 						 />		
 			<s:Group width="100%" height="50">
-				<s:Button id="Login"  label="登陆" click="Login_clickHandler(event)" horizontalCenter="0" bottom="0"
+				<s:Button id="Login"  label="登陆" click="Login_clickHandler(event)" horizontalCenter="0" bottom="0" 
 					  fontSize="20"  skinClass="skins.loginButtonSkin" />
 			</s:Group>
 			
