@@ -25,43 +25,43 @@
 			protected function validateLogin():Boolean
 			{
 				var validate:Boolean = true;
-				if(flag != 1){
-					initDB();
-					flag ++;
-				}
-				
-				if(Username.text == ""){
-					ErrorMsg.text = "请输入用户名";
-					validate = false;
-				}
-				else if(Password.text == ""){
-					ErrorMsg.text = "请输入密码";
-					validate = false
-				}
-				else{
-					var stmt:SQLStatement = new SQLStatement();
-					stmt.sqlConnection = dbConnection;
-					stmt.text = "SELECT * FROM accounts WHERE username = (:username)";
-					stmt.parameters[':username'] = Username.text;
-					stmt.execute();
-					var result:SQLResult = stmt.getResult(); 
-					
-					try{
-						var row:Object = result.data[0]; 
-						if(row.password == Password.text){
-							validate = true;
-						}
-						else{
-							validate = false;
-							ErrorMsg.text = "密码错误";
-						}
-					}
-					catch(error:Error){
-						validate = false;
-						ErrorMsg.text = "用户不存在";
-					}
-					
-				}
+//				if(flag != 1){
+//					initDB();
+//					flag ++;
+//				}
+//				
+//				if(Username.text == ""){
+//					ErrorMsg.text = "请输入用户名";
+//					validate = false;
+//				}
+//				else if(Password.text == ""){
+//					ErrorMsg.text = "请输入密码";
+//					validate = false
+//				}
+//				else{
+//					var stmt:SQLStatement = new SQLStatement();
+//					stmt.sqlConnection = dbConnection;
+//					stmt.text = "SELECT * FROM accounts WHERE username = (:username)";
+//					stmt.parameters[':username'] = Username.text;
+//					stmt.execute();
+//					var result:SQLResult = stmt.getResult(); 
+//					
+//					try{
+//						var row:Object = result.data[0]; 
+//						if(row.password == Password.text){
+//							validate = true;
+//						}
+//						else{
+//							validate = false;
+//							ErrorMsg.text = "密码错误";
+//						}
+//					}
+//					catch(error:Error){
+//						validate = false;
+//						ErrorMsg.text = "用户不存在";
+//					}
+//					
+//				}
 				
 				
 				

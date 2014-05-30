@@ -471,18 +471,18 @@
 			</esri:Map>
 	<fx:Declarations>
 		<fx:Component className="SettingPopup">
-			<s:SkinnablePopUpContainer x="10" y="50">
-				<s:Panel title="查询数据设置"  width="300" height="335" id="selectionPanel">
+			<s:SkinnablePopUpContainer width="100%" height="100%" >
+				<s:Panel title="查询数据设置"  width="300" height="400" id="selectionPanel" verticalCenter="0" horizontalCenter="0">
 					<s:VGroup width="100%" horizontalAlign="center"
 							  paddingTop="20" gap="15">
 						<s:Label text="数据1"/>
-						<flextras:DropDownList id="selection1" x="16" width="200" height="30" requireSelection="true" selectedIndex="{mapPanel.index1}"
+						<flextras:DropDownList id="selection1"  width="80%" height="30" requireSelection="true" selectedIndex="{mapPanel.index1}"
 										 dataProvider="{mapPanel.searchValue}" change="mapPanel.updateSelection1(event);"/>
 						<s:Label text="数据2"/>
-						<flextras:DropDownList id="selection2" x="16" width="200" height="30" requireSelection="true" selectedIndex="{mapPanel.index2}"
+						<flextras:DropDownList id="selection2"  width="80%" height="30" requireSelection="true" selectedIndex="{mapPanel.index2}"
 											   dataProvider="{mapPanel.searchValue}" change="mapPanel.updateSelection2(event);"/>
 						<s:Label text="数据3"/>
-						<flextras:DropDownList id="selection3" x="16" width="200" height="30" requireSelection="true" selectedIndex="{mapPanel.index3}"
+						<flextras:DropDownList id="selection3"  width="80%" height="30" requireSelection="true" selectedIndex="{mapPanel.index3}"
 											   dataProvider="{mapPanel.searchValue}" change="mapPanel.updateSelection3(event);"/>
 						<s:Button label="OK" click="close();"/>
 					</s:VGroup>
