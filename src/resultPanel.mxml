@@ -19,7 +19,6 @@
 			
 			import spark.events.GridSelectionEvent;
 			
-
 			[Bindable]
  			public static var arr:ArrayCollection=new ArrayCollection();
 			
@@ -41,7 +40,7 @@
 		
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<mx:MenuBar id="mnBr2" top="0" width="80%" height="5%" horizontalCenter="0" iconField="icon"
+	<mx:MenuBar id="mnBr2" top="0" left="62" width="100%" height="5%" iconField="icon"
 				labelField="label"/>
 	<s:Group bottom="0" width="100%" height="95%">
 		<s:DataGrid id="dg" x="0" top="0" width="100%" height="55%" alpha="0.5" dataProvider="{arr}"

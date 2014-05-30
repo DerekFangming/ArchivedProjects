@@ -463,15 +463,15 @@
 		<s:NumberFormatter id="numberFormatter" trailingZeros="false"/>
 	</fx:Declarations>
 	
-	<mx:MenuBar id="mnBr" width="80%" height="5%" dataProvider="{arrColl}" horizontalCenter="0"
+	<mx:MenuBar id="mnBr" width="81%" height="5%" dataProvider="{arrColl}" horizontalCenter="0"
 				iconField="icon" itemClick="menu_changeHandler(event)" labelField="label"/>
-	<esri:Map id="map" bottom="0" width="100%" height="96%" horizontalCenter="0">
+	<esri:Map id="map" bottom="0" width="100%" height="95%" horizontalCenter="0">
 				<esri:ArcGISDynamicMapServiceLayer url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer"/>
 				<esri:GraphicsLayer id="myGraphicsLayer"/>
 			</esri:Map>
 	<fx:Declarations>
 		<fx:Component className="SettingPopup">
-			<s:SkinnablePopUpContainer x="70" y="250">
+			<s:SkinnablePopUpContainer x="70" y="300">
 				<s:Panel title="查询数据设置"  width="500" height="460" id="selectionPanel" verticalCenter="0" horizontalCenter="0">
 					<s:VGroup width="100%" height="100%" horizontalAlign="center"
 							  paddingTop="20" gap="15">
@@ -484,6 +484,8 @@
 						<s:Label text="数据3"/>
 						<flextras:DropDownList id="selection3"  width="80%" height="30" requireSelection="true" selectedIndex="{mapPanel.index3}"
 											   dataProvider="{mapPanel.searchValue}" change="mapPanel.updateSelection3(event);"/>
+						
+						<s:VGroup height="15"/>
 						<s:Button label="确定" height="50" width="200" click="close();" />
 					</s:VGroup>
 				</s:Panel>

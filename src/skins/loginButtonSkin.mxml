@@ -15,7 +15,7 @@
 		<s:State name="up" />
 	</s:states>
 	<s:Group>
-       <s:Rect width="154" height="35" radiusX="2" >
+       <s:Rect width="480" height="55" radiusX="2" >
 			<s:stroke>
 				<s:SolidColorStroke color.up="0x000000" alpha.down="0.6"/> 
 			</s:stroke>
