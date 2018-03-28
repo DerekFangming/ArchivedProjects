@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		initialize="initContent();">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.managers.PopUpManager;
+			
+			import spark.components.Label;
+			import spark.components.TitleWindow;
+			import spark.events.IndexChangeEvent;
+			
+			public var myTitleWindow:TitleWindow = new TitleWindow();
+			
+			private var initDBFlag:int = 0;
+			private var dbConnection:SQLConnection = new SQLConnection;
+			
+			private function backtoSubmenuView(event:MouseEvent):void
+			{
+				navigator.popView();
+			}
+			
+			private function initContent():void{
+				if(initDBFlag != 1){
+					initDB();
+					initDBFlag ++;
+				}
+				
+				var stmt:SQLStatement = new SQLStatement();
+				stmt.sqlConnection = dbConnection;
+				stmt.text = "SELECT content FROM sgTable where title = (:title)";
+				stmt.parameters[':title'] = data.title;
+				stmt.execute();
+				var result:SQLResult = stmt.getResult();
+				
+				try{
+					var row:Object = result.data[0];
+					sgTitle.text = data.title;
+					sgContent.text = row.content;
+				}catch(error:Error){
+					myTitleWindow = new TitleWindow();
+					myTitleWindow.title = "                  Error";
+					myTitleWindow.width= 220;
+					myTitleWindow.height= 150;
+					myTitleWindow.x = 50;
+					myTitleWindow.y = 200;
+					var label:Label = new Label();
+					label.text="Cannot read from database";
+					label.x = 60;
+					label.y = 30;
+					var btn:Button = new Button();
+					btn.label="OK";
+					btn.width = 90;
+					btn.x = 60;
+					btn.y = 70;
+					btn..addEventListener(MouseEvent.CLICK, closeTitleWindow);
+					myTitleWindow.addElement(label);
+					myTitleWindow.addElement(btn);
+					PopUpManager.addPopUp(myTitleWindow, this, true);
+				}
+				
+				
+			}
+			
+			private function initDB():void{
+				var embededSessionDB:File = File.applicationDirectory.resolvePath("assets/sgDatabase.sqlite");
+				var writeSessionDB:File = File.applicationStorageDirectory.resolvePath("assets/sgDatabase.sqlite");
+				if (!writeSessionDB.exists) {
+					embededSessionDB.copyTo(writeSessionDB);
+				}
+				var dbFile:File = writeSessionDB;
+				dbConnection.open(dbFile);
+			}
+			
+			private function closeTitleWindow(event:MouseEvent):void {
+				PopUpManager.removePopUp(myTitleWindow);
+			}
+		]]>
+	</fx:Script>
+	
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	
+	<s:titleContent>
+		<s:Label id="sgTitle" color="#FFFFFF" textAlign="center" />
+	</s:titleContent>
+	
+	<s:navigationContent>
+		<s:Button label="Back" click="backtoSubmenuView(event)"/>
+	</s:navigationContent>
+	
+	<s:actionContent>
+		<s:Button label="Note"/>
+	</s:actionContent>
+			
+			<s:TextArea id="sgContent" width="100%" height="100%" editable="false"
+						contentBackgroundAlpha="0" borderVisible="false"/> <!-- scrollRect-->
+</s:View>

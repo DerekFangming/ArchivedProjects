@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" fontFamily="宋体"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		skinClass="skin.MenuBackground">
+	<s:titleContent>
+		<s:Label text="Home" fontSize="20" textAlign="center" width="100%" color="#FFFFFF" />
+	</s:titleContent>
+	
+	<s:layout>
+		<s:VerticalLayout paddingTop="10" paddingLeft="10" paddingRight="10"/>
+	</s:layout>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			protected function toReferenceView(event:MouseEvent):void{
+				navigator.pushView(referenceView);
+			}
+			protected function toMenu(event:MouseEvent):void{
+				navigator.pushView(menuView);
+			}
+			protected function bugReport():void{
+				var u:URLRequest = new URLRequest("mailto:"+"synfm@126.com");
+				var v:URLVariables = new URLVariables();
+				v.subject = "Bug report";
+				v.body = "\n\nBug erported from wpiSG App";
+				u.data = v;
+				navigateToURL(u, "_self"); 
+				
+			}
+		]]>
+	</fx:Script>
+	
+	
+	<s:Group width="100%" height="100%">
+		<s:Button label="All contents" width="60%" height="35"  verticalCenter="0" horizontalCenter="0" alpha="0.7" click="toMenu(event)"/>
+		<s:Button label="Report bugs" width="60%" height="35"  verticalCenter="45" horizontalCenter="0" alpha="0.7" click="bugReport()"/>
+		<s:Button label="Acknowledgement" width="60%" height="35" verticalCenter="90" horizontalCenter="0" alpha="0.7" click="toReferenceView(event)"/>
+		<s:Button label="About developer" width="60%" height="35" verticalCenter="135" horizontalCenter="0" alpha = "0.7"
+				  click="navigateToURL(new URLRequest('http://ftsflower.com'), 'quote')"/>
+		
+		
+	</s:Group>
+	<s:Group width="100%" height="10%" bottom="0">
+		<s:Label text="©Copyright 2014 by Fangming Ning" color="#FFFFFF" horizontalCenter="0" fontSize="12"/>
+	</s:Group>
+	
+	
+</s:View>

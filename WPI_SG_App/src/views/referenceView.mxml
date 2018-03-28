@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark">
+	
+	<s:titleContent>
+		<s:Label text="Acknowledgement" fontSize="20" textAlign="center" width="100%" color="#FFFFFF" />
+	</s:titleContent>
+	
+	<fx:Script>
+		<![CDATA[
+			private function backtoHomeView(event:MouseEvent):void
+			{
+				navigator.popView();
+			}
+		]]>
+	</fx:Script>
+	
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:navigationContent>
+		<s:Button label="Back" click="backtoHomeView(event)"/>
+	</s:navigationContent>
+	
+	<s:VGroup height="100%" width="100%" gap="15" horizontalAlign="center" verticalAlign="middle">
+		<s:Image source="@Embed('assets/wpiLogo.png')"/>
+		<s:Label text="Content copied from WPI Servival Guide"/>
+		<s:Label text="WPI SG version: 7.5"/>
+		<s:Label text="Thanks for editors of SG for 7 editions"/>
+	</s:VGroup>
+	
+</s:View>

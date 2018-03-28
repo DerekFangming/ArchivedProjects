@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" fontFamily="宋体"
+		initialize="initContent();">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.managers.PopUpManager;
+			
+			import spark.components.Label;
+			import spark.components.TitleWindow;
+			import spark.events.IndexChangeEvent;
+			
+			public var myTitleWindow:TitleWindow = new TitleWindow();
+			
+			private var initDBFlag:int = 0;
+			private var dbConnection:SQLConnection = new SQLConnection;
+			
+			[Bindable]
+			private var dataArray:ArrayCollection = new ArrayCollection([]);
+			
+			private function openSelectedItem(event:IndexChangeEvent):void{
+				if(subMenuList.selectedItem.title == "地图"){
+					navigator.pushView(mapView);
+				}else{
+					navigator.pushView(contentView, subMenuList.selectedItem);
+				}
+			}
+			
+			private function clearPlaceHolder():void{
+				if(searchArea.text == "Enter key word here"){
+					searchArea.text = "";
+				}
+			}
+			
+			private function checkContent():void{
+				if(searchArea.text == ""){
+					searchArea.text = "Enter key word here";
+				}
+			}
+			
+			private function backtoHomeView(event:MouseEvent):void
+			{
+				navigator.popView();
+			}
+			
+			private function search():void{
+				navigator.pushView(searchResultView, searchArea.text);
+			}
+			
+			private function initContent():void{
+				if(initDBFlag != 1){
+					initDB();
+					initDBFlag ++;
+				}
+				
+				var stmt:SQLStatement = new SQLStatement();
+				stmt.sqlConnection = dbConnection;
+				stmt.text = "SELECT title FROM sgTable where parent = (:parent)";
+				stmt.parameters[':parent'] = data.title;
+				stmt.execute();
+				var result:SQLResult = stmt.getResult();
+				
+				var i:int = 0;
+				while(i < 50){
+					try{
+						var row:Object = result.data[i];
+						dataArray.addItem({title: row.title});
+						i++;
+					}catch(error:Error){
+						i = 51;
+					}
+				}
+				if(dataArray.length == 0){
+					myTitleWindow = new TitleWindow();
+					myTitleWindow.title = "                  Error";
+					myTitleWindow.width= 220;
+					myTitleWindow.height= 150;
+					myTitleWindow.x = 50;
+					myTitleWindow.y = 200;
+					var label:Label = new Label();
+					label.text="Cannot read from database";
+					label.x = 60;
+					label.y = 30;
+					var btn:Button = new Button();
+					btn.label="OK";
+					btn.width = 90;
+					btn.x = 60;
+					btn.y = 70;
+					btn..addEventListener(MouseEvent.CLICK, closeTitleWindow);
+					myTitleWindow.addElement(label);
+					myTitleWindow.addElement(btn);
+					PopUpManager.addPopUp(myTitleWindow, this, true);
+				}
+				
+			}
+			
+			private function initDB():void{
+				var embededSessionDB:File = File.applicationDirectory.resolvePath("assets/sgDatabase.sqlite");
+				var writeSessionDB:File = File.applicationStorageDirectory.resolvePath("assets/sgDatabase.sqlite");
+				if (!writeSessionDB.exists) {
+					embededSessionDB.copyTo(writeSessionDB);
+				}
+				var dbFile:File = writeSessionDB;
+				dbConnection.open(dbFile);
+			}
+			
+			private function closeTitleWindow(event:MouseEvent):void {
+				PopUpManager.removePopUp(myTitleWindow);
+			}
+		]]>
+	</fx:Script>
+	
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:titleContent>
+		<s:TextInput id="searchArea" text = "Enter key word here" paddingLeft="5" width="100%" 
+					 focusIn="clearPlaceHolder()" focusOut="checkContent()"/>
+	</s:titleContent>
+	
+	<s:navigationContent>
+		<s:Button label="Back" click="backtoHomeView(event)"/>
+	</s:navigationContent>
+	
+	<s:actionContent>
+		<s:Button label="Search" click="search()"/>
+	</s:actionContent>
+	
+	<s:List id="subMenuList" width="100%" height="100%" labelField="title" contentBackgroundAlpha="0" change="openSelectedItem(event)"
+			dataProvider="{dataArray}">
+	</s:List>
+</s:View>

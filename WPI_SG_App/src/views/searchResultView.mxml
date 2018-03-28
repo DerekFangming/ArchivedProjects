@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		initialize="initContent();">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import spark.components.TitleWindow;
+			import spark.events.IndexChangeEvent;
+			import mx.managers.PopUpManager;
+			
+			public var myTitleWindow:TitleWindow = new TitleWindow();
+			
+			private var initDBFlag:int = 0;
+			private var dbConnection:SQLConnection = new SQLConnection;
+			
+			[Bindable]
+			private var dataArray:ArrayCollection = new ArrayCollection([]);
+			
+			private function backtoMenuView(event:MouseEvent):void
+			{
+				navigator.popView();
+			}
+			
+			private function initContent():void{
+				if(initDBFlag != 1){
+					initDB();
+					initDBFlag ++;
+				}
+				
+				var stmt:SQLStatement = new SQLStatement();
+				stmt.sqlConnection = dbConnection;
+				stmt.text = "SELECT * FROM sgTable WHERE content LIKE (:keyWord)";
+				stmt.parameters[':keyWord'] = "%" + data + "%";
+				stmt.execute();
+				var result:SQLResult = stmt.getResult();
+				var i:int = 0;
+				while(i < 50){
+					try{
+						var row:Object = result.data[i];
+						dataArray.addItem({title: row.title});
+						i++;
+					}catch(error:Error){
+						i = 51;
+					}
+				}
+				if(dataArray.length == 0){
+					dataArray.addItem({title: "No result.Try less key words"});
+				}
+				
+			}
+			
+			private function initDB():void{
+				var embededSessionDB:File = File.applicationDirectory.resolvePath("assets/sgDatabase.sqlite");
+				var writeSessionDB:File = File.applicationStorageDirectory.resolvePath("assets/sgDatabase.sqlite");
+				if (!writeSessionDB.exists) {
+					embededSessionDB.copyTo(writeSessionDB);
+				}
+				var dbFile:File = writeSessionDB;
+				dbConnection.open(dbFile);
+			}
+			
+			private function openSelectedItem(event:IndexChangeEvent):void{
+				if(searchResultList.selectedItem.title != "No result.Try less key words"){
+					navigator.pushView(contentView, searchResultList.selectedItem);
+				}
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:titleContent>
+		<s:Label text="Search result" color="#FFFFFF"/>
+	</s:titleContent>
+	
+	<s:navigationContent>
+		<s:Button label="Back" click="backtoMenuView(event)"/>
+	</s:navigationContent>
+	
+	<s:List id="searchResultList" width="100%" height="100%" labelField="title" contentBackgroundAlpha="0" change="openSelectedItem(event)"
+			dataProvider="{dataArray}">
+	</s:List>
+</s:View>
