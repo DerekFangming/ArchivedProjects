@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" initialize="getAllData();"
+		xmlns:s="library://ns.adobe.com/flex/spark" fontFamily="宋体" skinClass="skin.overallViewBackground" xmlns:actionScript="actionScript.*">
+	
+	<s:layout>
+		<s:VerticalLayout paddingTop="10" paddingLeft="10" paddingRight="10"/>
+	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.formatters.DateFormatter;
+			
+			import spark.events.IndexChangeEvent;
+			
+			private var dbConnection:SQLConnection = new SQLConnection;
+			private var initDBFlag:int = 0;
+			
+			[Bindable]
+			private var dataArray:ArrayCollection = new ArrayCollection([]);
+			
+			private function createNewNote(event:MouseEvent):void{
+				navigator.pushView(notebookView);
+			}
+			
+			private function openSelectedItem(event:IndexChangeEvent):void{
+				navigator.pushView(notebookView, notebookList.selectedItem);
+			}
+			
+			protected function getAllData():void
+			{
+				if(initDBFlag != 1){
+					initDB();
+					initDBFlag ++;
+				}
+				
+				var stmt1:SQLStatement = new SQLStatement();
+				stmt1.sqlConnection = dbConnection;
+				stmt1.text = "SELECT * FROM notebookTable where showThis = (:true)";
+				stmt1.parameters[':true'] = "true";
+				stmt1.execute();
+				var result1:SQLResult = stmt1.getResult(); 
+				
+				var stmt2:SQLStatement = new SQLStatement();
+				stmt2.sqlConnection = dbConnection;
+				stmt2.text = "SELECT rowid FROM notebookTable where showThis = (:true)";
+				stmt2.parameters[':true'] = "true";
+				stmt2.execute();
+				var result2:SQLResult = stmt2.getResult(); 
+			
+				var i:int = 0;
+				while(i < 50000){
+					try{
+						var row1:Object = result1.data[i];
+						var row2:Object = result2.data[i];
+						dataArray.addItem({title: row1.title, selectedId: row2.rowid});
+						i++;
+					}catch(error:Error){
+						i=50001;
+					}
+				}
+			}
+			
+			private function initDB():void{
+				var embededSessionDB:File = File.applicationDirectory.resolvePath("assets/notebookDatabase.sqlite");
+				var writeSessionDB:File = File.applicationStorageDirectory.resolvePath("assets/notebookDatabase.sqlite");
+				if (!writeSessionDB.exists) {
+					embededSessionDB.copyTo(writeSessionDB);
+				}
+				var dbFile:File = writeSessionDB;
+				dbConnection.open(dbFile);
+			}
+			
+			
+			
+			
+			
+			import flash.events.ProgressEvent;
+			import flash.net.Socket;
+			import flash.utils.ByteArray;
+			import flash.utils.setTimeout;
+			
+			import mx.utils.Base64Encoder;
+			
+			protected var socket:Socket;
+			protected var isLogin:Boolean = false;  
+			protected var smtp:String = "smtp.qq.com";
+			protected var qq:String;
+			protected var ps:String;            
+			protected var Base64:Base64Encoder;
+			
+			[Bindable]
+			public var log:String="";
+			
+			private function initB64():void{
+				var b64:Base64Encoder = new Base64Encoder;
+				b64.encode("787192976@qq.com");
+				qq = b64.toString();
+				
+				b64 = new Base64Encoder;
+				b64.encode("liaoning");
+				ps = b64.toString();
+			}
+			
+//			protected function abtn_clickHandler(event:MouseEvent):void
+//			{
+//				socket = new Socket(smtp,25);
+//				socket.addEventListener(Event.CONNECT,ConnectionHandler);  
+//				socket.addEventListener(ProgressEvent.SOCKET_DATA,ReceiveHandler); 
+//				socket.addEventListener(Event.CLOSE,CloseHandler);  
+//				function ConnectionHandler(e:Event):void{
+//					log += "连接smtp成功.... \n";
+//				}           
+//				function CloseHandler(e:Event):void 
+//				{  
+//					log +="已经从服务器断开\n";  
+//				}  
+//			}
+			public function ReceiveHandler(e:ProgressEvent):void{
+				var msg:String = "";  
+				while(socket.bytesAvailable)  
+				{  
+					msg += socket.readMultiByte(socket.bytesAvailable,"utf8");  
+				}  
+				log += msg + "\n";  
+			}
+			
+//			protected function bbtn_clickHandler(event:MouseEvent):void
+//			{
+//				sendMessage(ab.text);   
+//				log += "发送："+ab.text + "等待回应..\n"; 
+//			}
+			
+			protected function sendMessage(msg:String):void 
+			{  
+				var message:ByteArray = new ByteArray();  
+				message.writeUTFBytes(msg+"\r\n");  
+				socket.writeBytes(message);  
+				socket.flush();  
+			}  
+			
+//			protected function button1_clickHandler(event:MouseEvent):void
+//			{
+//				if(socket.connected)
+//					socket.close();
+//			}
+			
+//			protected function cdbtn_clickHandler(event:MouseEvent):void
+//			{
+//				var b64:Base64Encoder = new Base64Encoder;
+//				b64.encode(cd.text);
+//				cd.text = b64.toString();                   
+//			}
+			
+			private function sendEmail(event:MouseEvent):void{
+				var b64:Base64Encoder = new Base64Encoder;
+				b64.encode("synfm@126.com");
+				var mailTo:String = b64.toString();
+				
+				try{
+					socket = new Socket(smtp,25);
+					socket.addEventListener(Event.CONNECT,ConnectionHandler);  
+					socket.addEventListener(ProgressEvent.SOCKET_DATA,ReceiveHandler); 
+					socket.addEventListener(Event.CLOSE,CloseHandler);  
+				}catch(error:IOErrorEvent){
+					Alert.show("无网络连接");
+				}
+				function ConnectionHandler(e:Event):void{
+					var content:String = "";
+					
+					if(initDBFlag != 1){
+						initDB();
+						initDBFlag ++;
+					}
+					
+					var stmt:SQLStatement = new SQLStatement();
+					stmt.sqlConnection = dbConnection;
+					stmt.text = "SELECT * FROM notebookTable";
+					stmt.execute();
+					var result:SQLResult = stmt.getResult(); 
+					
+					var i:int = 0;
+					while(i < 50000){
+						try{
+							var row:Object = result.data[i];
+							content += row.title;
+							content += "--";
+							content += row.content;
+							content += "--";
+							i++;
+						}catch(error:Error){
+							i=50001;
+						}
+					}
+					
+					sendMessage("EHLO testmail");
+					sendMessage("AUTH LOGIN");  
+					sendMessage(qq);  
+					sendMessage(ps); 
+					var mailFrom:String = qq;
+					sendMessage("MAIL FROM: <"+mailFrom+">");  
+					sendMessage("RCPT TO: <"+mailTo+">");  
+					sendMessage("DATA");  
+					var dateFormatter:DateFormatter = new DateFormatter();  
+					dateFormatter.formatString = "yyyy-mm-dd";  
+					sendMessage("Date: "+dateFormatter.format(new Date()));  
+					sendMessage("From: "+mailFrom);  
+					sendMessage("To: "+mailTo);  
+					sendMessage("Content-Type: text/html");  
+					sendMessage("Subject: Backup");  
+					sendMessage("");  
+					sendMessage("");  
+					sendMessage("check if this mail get send");
+//					sendMessage(content);  
+					sendMessage("."); 
+					Alert.show("ok");
+				}           
+				function CloseHandler(e:Event):void 
+				{  
+					Alert.show("发送失败"); 
+				}  
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:titleContent>
+		<s:Label text="lzm哒备忘录！" paddingLeft="200" paddingTop="10" color="white"/>
+	</s:titleContent>
+	
+	<!--<s:navigationContent>
+		<s:Button label="发送" click="sendEmail(event)"/>
+	</s:navigationContent>-->
+	
+	<s:actionContent>
+		<s:Button label="新建" click="createNewNote(event);"/>
+	</s:actionContent>
+	
+	<s:List id="notebookList" width="100%" height="100%" labelField="title" contentBackgroundAlpha="0" change="openSelectedItem(event)"
+			dataProvider="{dataArray}">
+	</s:List>
+	
+</s:View>

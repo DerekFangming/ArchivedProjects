@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("spark.components.ViewNavigator")]
+	</fx:Metadata>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="landscapeAndOverlay" />
+		<s:State name="portraitAndOverlay" />
+		<s:State name="landscape" />
+		<s:State name="portrait" />
+		<s:State name="disabled" />
+		<s:State name="normal" />
+	</s:states>
+	
+	<!-- SkinParts
+	name=contentGroup, type=spark.components.Group, required=false
+	name=actionBar, type=spark.components.ActionBar, required=false
+	-->
+	<!--<s:BitmapImage width="100%" height="88%" source="@Embed('assets/overallBG.png')"/>-->
+	
+	<s:Group id="contentGroup" width="100%" height="100%"/>
+</s:Skin>
