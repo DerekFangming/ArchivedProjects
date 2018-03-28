@@ -1,0 +1,99 @@
+body
+{
+	background-image: url('http://i.stack.imgur.com/jGlzr.png');
+    background-color:#cccccc;
+}
+
+h1.title{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 40px;
+	text-align:center;
+}
+
+.vstyle{
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+p.copyright{
+	margin: auto;
+	color: #754719;
+	font-size: 70%;
+}
+
+.table1{
+	background-color: #ececea;
+	margin: auto;
+} 
+
+.table2{
+	background-color: #ececea;
+	width: 620px;
+}
+
+.table3{
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	background-color: #ececea;	
+    width: 1010px;
+	height: 70%;
+	margin: auto;
+} 
+
+.table4{
+	background-color: #ECECEA;
+	height: 600px;
+}
+
+.table5{
+	background-color: #ececea;
+	width: 450px;
+	height: 420px;
+}
+
+.table6{
+	background-color: #ececea;
+	width: 300px;
+	height:  420px;
+}
+
+.table7{
+	border: 1px solid black;
+	width: 100%;
+}
+
+th{
+	border: 1px solid black;
+}
+
+.solid{
+	border: 1px solid black;
+}
+
+div.foo{
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	margin-left: 30px;
+}
+
+div.foo:first-letter{
+	font-size: x-large;
+}
+
+span.green{
+	color: #009933;
+}
+
+span.red{
+	color: #FF1919;
+}
+
+span.blue{
+	color: #0066FF;
+}
+
+span.yellow{
+	color: #FFFF00;
+}
+
+span.small{
+	font-size: 12px;
+}

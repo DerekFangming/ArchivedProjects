@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<head>
+	<title>Register</title>
+	<link href="/styleSheet.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+	<center><table>
+	<td><form  class="table5" action="saveprofileupdate" method="post"> 
+    <h2 class = "vstyle">Update profile</h2> 
+    <p> 
+         <label for="usernamesignup" class="uname" data-icon="u">&nbsp;&nbsp;Username:</label>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input id="usernamesignup" name="usernamesignup" disabled="disabled" type="text" value=<%= @usr %> />
+    </p>
+    <p> 
+         <label for="firstnamesignup" class="fname" data-icon="u">&nbsp;&nbsp;Name:</label>&nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input id="firstnamesignup" name="firstnamesignup" type="text" placeholder="First" value ="<%= @firstname %>" />
+    </p>
+    <p> 
+         <label for="lastnamesignup" class="lname" data-icon="u">&nbsp;&nbsp;Last Name:</label>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input id="lastnamesignup" name="lastnamesignup" type="text" placeholder="Last" value ="<%= @lastname %>"/>
+    </p>
+    <p> 
+         <label for="emailsignup" class="youmail" data-icon="e" >&nbsp;&nbsp;Email:</label>&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input id="emailsignup" name="emailsignup" type="email" placeholder="example@domain.com" value ="<%= @email %>"/> 
+    </p>
+    <p> 
+         <label>&nbsp;&nbsp;Date of Birth:</label>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <select name="month" onChange="changeDate(this.options[selectedIndex].value);">
+         <option value="na">Month</option>
+         <option value="1" <%= @jan %>>January</option>
+         <option value="2" <%= @feb %>>February</option>
+         <option value="3" <%= @mar %>>March</option>
+         <option value="4" <%= @apr %>>April</option>
+         <option value="5" <%= @may %>>May</option>
+         <option value="6" <%= @jun %>>June</option>
+         <option value="7" <%= @jul %>>July</option>
+         <option value="8" <%= @aug %>>August</option>
+         <option value="9" <%= @sep %>>September</option> 
+         <option value="10" <%= @oct %>>October</option>
+         <option value="11" <%= @nov %>>November</option>
+         <option value="12" <%= @dec %>>December</option>
+         </select>
+         <select name="day" id="day">
+         <option value="na">Day</option>
+         <option value="<%= @day %>" <%= @dayselected %>><%= @day %></option>
+         </select>
+         <select name="year" id="year">
+         <option value="na">Year</option>
+         <option value="<%= @year %>" <%= @yearselected %>><%= @year %></option>
+         </select>
+         <script language="JavaScript" type="text/javascript">
+         function changeDate(i){
+         var e = document.getElementById('day');
+         while(e.length>0)
+         e.remove(e.length-1);
+         var j=-1;
+         if(i=="na")
+         k=0;
+         else if(i==2)
+         k=28;
+         else if(i==4||i==6||i==9||i==11)
+         k=30;
+         else
+         k=31;
+         while(j++<k){
+         var s=document.createElement('option');
+         var e=document.getElementById('day');
+         if(j==0){
+         s.text="Day";
+         s.value="na";
+         try{
+         e.add(s,null);}
+         catch(ex){
+         e.add(s);}}
+         else{
+         s.text=j;
+         s.value=j;
+         try{
+         e.add(s,null);}
+         catch(ex){
+         e.add(s);}}}}
+         y = 1998;
+         while (y-->1908){
+         var s = document.createElement('option');
+         var e = document.getElementById('year');
+         s.text=y;
+         s.value=y;
+         try{
+         e.add(s,null);}
+         catch(ex){
+         e.add(s);}}
+         </script> 
+    </p>
+    <p> 
+         <label>&nbsp;&nbsp;Gender:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <select name="Gender" >
+         <option value="male" <%= @male %>>Male</option>
+         <option value="female" <%= @female%>>Female</option>
+         </select>
+    </p><br />
+    <p class="signin button"> 
+    <input type="submit" value="Save"/> 
+    </p>
+</form></td>
+<td width="20px;" > </td>
+<td><form  class="table6" action="changepasswordupdate" method="post"> 
+    <h2 class = "vstyle">Change password</h2> 
+    <p2 style="font-size: 75%;">&nbsp;&nbsp;&nbsp;The <span class="red">* </span>parts are required. </p2>
+    <p><span class="red"><%= @message %></span></p>
+    <p> 
+         <label for="oldpassword" class="youpasswd" data-icon="p"><span class="red">*</span>Old Password:</label>
+         <input id="oldpassword" name="oldpassword" required="required" type="password" placeholder="Old Password"/>
+    </p>
+	<p> 
+         <label for="passwordsignup" class="youpasswd" data-icon="p"><span class="red">*</span>New Password:</label>
+         <input id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="New Password"/>
+    </p>
+    <p> 
+         <label for="passwordsignup_confirm" class="password" data-icon="p"><span class="red">*</span>Confirm Password:</label>
+         <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="Password"/>
+    </p><br /><br /><br />
+    
+    <p class="signin button"> 
+    <input type="submit" value="Change password"/> 
+    </p>
+    </form>
+</td>
+</table></center>
+</body>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<head>
+	<title>Home</title>
+	<link href="/styleSheet.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+	<table class="table3">
+		<td><h1>O<span class="small">line</span>c<span class="small">ontact</span>b<span class="small">ook</span> <span style="font-size: 75%;">
+				&nbsp;&nbsp;&nbsp;&nbsp;Welcome!</span></h1></td>
+	</table><br>
+		<table style="margin: auto;">
+		<td width="300px;" bgcolor="#ececea" rowspan="2" style="text-align: left; vertical-align: top; ">
+			<h2 class="vstyle"><%= @greeting %></h2>
+			<h3 class="vstyle"><%= @call%><%= @name%></h3>
+			<table>
+			<td><form action="changeprofile" method="get">
+				<button type="submit">Change password & profile</button>
+			</form></td>
+			<td><form action="exit" method="get">
+				<button type="submit">Logout Ocb</button>
+			</form></td>
+			</table>
+			<hr width = "100%">
+			<h2 class="vstyle">You have <%= @usageMsg %></h2>
+			<p class="vstyle" style="line-height: 70%;">Search for contact:</p>
+			<p><span class="red"><%= @searchResult %></span></p>
+			<table width="100%">
+			<td>
+				<form action="searchcontact" method="post">
+				<input id="contactname" name="contactname" type="text" placeholder="Enter a name"/>
+				<button type="submit">Search</button>
+			</form>
+			</td>
+			</table>
+			<p class="vstyle" style="line-height: 70%;">Add new contact:</p>
+			<p><span class="red"><%= @createResult %></span></p>
+			<form action="addcontact" method="post">
+				<p>
+					<label for="name" data-icon="u"><span class="red">*</span>Name:&nbsp;&nbsp;&nbsp;</label>
+					<input size="20" maxlength="10" id="name" name="name"type="text" required="required" placeholder="Name" />
+                </p>
+                <p>
+					<label for="phonenum" data-icon="u"><span class="red">*</span>Cal:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;</label>
+					<input size="20" maxlength="10" id="phonenum" name="phonenum"type="text" required="required" placeholder="Phone number" />
+                </p>
+                <p>
+					<label for="email" data-icon="u">&nbsp;&nbsp;Email:&nbsp;&nbsp;&nbsp;</label>
+					<input size="20" maxlength="20"id="email" name="email"type="email" placeholder="sample@domin.com" />
+                </p>
+                <p>
+					<label for="msn" data-icon="u">&nbsp;&nbsp;MSN:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					<input size="20" maxlength="10" id="msn" name="msn" placeholder="MSN" />
+                </p>
+                <p>
+					<label for="gender">&nbsp;&nbsp;Gender:</label>
+					<select name="Gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    </select>
+                </p>
+				<span style="float: right;"><button type="submit">Create</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;</span>
+			</form>
+			<br />
+			<p class="vstyle" style="line-height: 70%;">Edit or delete contact:</p>
+			<p><span class="red"><%= @editResult %></span></p>
+			<table width="100%">
+			<td>
+				<form action="editcontact" method="post">
+				<input id="contactname" name="contactname" type="text" placeholder="Enter a name"/>
+				<button type="submit">Search</button>
+			</form>
+			</td>
+			</table>
+			
+		</td>
+		<td width="20px;" > </td>
+		<td width="680px;" bgcolor="#ececea" rowspan="2" style="text-align: left; vertical-align: top; ">
+			<table class="table7">
+				<tr class="solid">
+					<th>Name</th>
+					<th>Gender</th>
+					<th>Phone number</th>	
+					<th>Email</th>
+					<th>MSN</th>
+				</tr>
+				<%= @contactCode %>
+			</table><br /><br />
+				<%= @buttonCode%>
+		</td>
+	</table>
+</body>
